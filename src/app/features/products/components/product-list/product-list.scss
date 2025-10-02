@@ -1,11 +1,18 @@
-.list-products{
-  border: 1px solid black;
-  padding: 30px;
-
+.list-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
 }
 
-.products{
-  border: 1px solid black;
-  display: flex;
-  justify-content: space-between;
+.product {
+  flex-direction: column;
+
+  padding: 1rem;
 }
+.stock {
+  border-bottom: 5px solid green;
+}
+.out-of-stock {
+  border-bottom: 5px solid red;
+}
+
