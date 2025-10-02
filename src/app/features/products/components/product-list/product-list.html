@@ -13,7 +13,6 @@
           <!-- <p>{{product.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr' }}</p>-->
           <p>{{product.price | currency : 'EUR'}}</p>
           <p>⭐{{product.rating}}/5</p>
-          <p>{{product.category}}</p>
           @switch (product.category){
             @case ('gaming'){
               <span class="sports">🎮 Jeux vidéo</span>
@@ -44,8 +43,7 @@
           <p>{{ nbInStock() }} produits en stock</p>
         </mat-card-content>
         <mat-card-actions>
-          <button matButton>LIKE</button>
-          <button matButton>SHARE</button>
+          <button class="buy" matButton="elevated">Acheter</button>
         </mat-card-actions>
       </mat-card>
 

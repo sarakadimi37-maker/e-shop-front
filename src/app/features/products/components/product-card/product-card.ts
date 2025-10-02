@@ -3,10 +3,11 @@ import {
   MatCard,
   MatCardActions,
   MatCardContent,
-  MatCardHeader,
+  MatCardHeader, MatCardImage,
   MatCardSubtitle,
   MatCardTitle
 } from '@angular/material/card';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-product-card',
@@ -16,7 +17,9 @@ import {
     MatCardContent,
     MatCardHeader,
     MatCardSubtitle,
-    MatCardTitle
+    MatCardTitle,
+    MatButton,
+    MatCardImage
   ],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss'

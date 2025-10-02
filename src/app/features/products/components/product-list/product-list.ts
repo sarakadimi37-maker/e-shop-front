@@ -4,15 +4,16 @@ import {
   MatCard,
   MatCardActions,
   MatCardContent,
-  MatCardHeader,
+  MatCardHeader, MatCardImage,
   MatCardSubtitle,
   MatCardTitle
 } from '@angular/material/card';
 import {Product} from '../../../../models/product.model';
+import {MatButton} from '@angular/material/button';
 
 @Component({
   selector: 'app-product-list',
-  imports: [CurrencyPipe, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, NgClass
+  imports: [CurrencyPipe, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, NgClass, MatCardImage, MatButton
   ],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss'
