@@ -16,8 +16,20 @@
   border-bottom: 5px solid red;
 }
 
-.buy:hover{
+
+
+section{
+  margin: 50px auto 0 auto;
+  max-width: 1024px;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+  color: green;
+}
+.mat-mdc-raised-button:not(:disabled):hover{
   color: white;
   background-color: rgba(11, 129, 16, 0.85);
 }
-
+.mat-mdc-card-title {
+  padding: 10px;
+}

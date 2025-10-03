@@ -1,10 +1,10 @@
 <section>
+  <mat-card-title>Nos produits</mat-card-title>
   <div class="list-products">
     @for (product of products; track product.id) {
       <mat-card class="product" [ngClass]="product.inStock ? 'stock' : 'out-of-stock'" appearance="outlined">
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>Nos produits</mat-card-title>
           <mat-card-subtitle>{{product.name}}</mat-card-subtitle>
         </mat-card-header>
         <img mat-card-image [src]="product.imageUrl" alt="Photo of product">
@@ -43,7 +43,7 @@
           <p>{{ nbInStock() }} produits en stock</p>
         </mat-card-content>
         <mat-card-actions>
-          <button class="buy" matButton="elevated">Acheter</button>
+          <button matButton="elevated">Acheter</button>
         </mat-card-actions>
       </mat-card>
 
