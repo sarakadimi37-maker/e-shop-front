@@ -1,10 +1,59 @@
-<div class="header">
-  <nav>
-    <mat-icon aria-hidden="false" aria-label="Example menu icon" fontIcon="menu"></mat-icon>
-
-    <a routerLink="/">Accueil</a>
-    <a routerLink="/products">Produits</a>
-    <a routerLink="about">À propos</a>
-  </nav>
-
-</div>
+<nav role="menubar">
+  <div class="mobile">
+    <mat-icon aria-hidden="false" aria-label="menu icon" fontIcon="menu" (click)="toggleMenu()"></mat-icon>
+    <div id="mobile-menu" [ngClass]="isOpen? 'open': ''">
+      <mat-icon class="close-menu" aria-hidden="false" aria-label="close icon" fontIcon="close"
+                (click)="toggleMenu()"></mat-icon>
+      <ul>
+        <li>
+          <a routerLink="/" (click)="toggleMenu()">Accueil</a>
+        </li>
+        <li>
+          <a routerLink="/products" (click)="toggleMenu()">Produits</a>
+        </li>
+        <li>
+          <a routerLink="about" (click)="toggleMenu()">À propos</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <header class="header desktop">
+    <div class="container">
+      <div class="header-content">
+        <a routerLink="/" class="logo">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 6L10 6L13 19L25 19L28 10L11 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+            <circle cx="13" cy="25" r="2" fill="currentColor"/>
+            <circle cx="23" cy="25" r="2" fill="currentColor"/>
+          </svg>
+          <span>Ma Boutique</span>
+        </a>
+        <nav class="header-nav">
+          <a routerLink="/" class="nav-link">Accueil</a>
+          <a routerLink="/products" class="nav-link active">Produits</a>
+          <a routerLink="about" class="nav-link">Contact</a>
+        </nav>
+        <div class="header-actions">
+          <a href="#" class="icon-btn" aria-label="Favoris">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 21L10.55 19.7C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 19.7L12 21Z"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="badge">3</span>
+          </a>
+          <a href="panier-ecommerce.html" class="icon-btn" aria-label="Panier">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 6L10 6L13 19L25 19L28 10L11 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"/>
+              <circle cx="13" cy="25" r="2" fill="currentColor"/>
+              <circle cx="23" cy="25" r="2" fill="currentColor"/>
+            </svg>
+            <span class="badge">3</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+</nav>
