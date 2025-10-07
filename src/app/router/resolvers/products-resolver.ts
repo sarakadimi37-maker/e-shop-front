@@ -1,5 +1,5 @@
 import { ResolveFn } from '@angular/router';
-import {Product} from '../../models/product.model';
+import {Product} from '../../models/product-model';
 import {delay, of} from 'rxjs';
 
 export const productsResolver: ResolveFn<Product[]> = (route, state) => {

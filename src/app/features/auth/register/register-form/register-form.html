@@ -1,0 +1,63 @@
+<!-- profile-form.page.html -->
+<form [formGroup]="registerForm" style="
+    display: flex;
+    flex-direction: column;">
+  <!----------------------------Username --------------------------->
+  <label for="username">username :
+    <input id="username" type="text" formControlName="username"
+           [attr.aria-invalid]="registerForm.controls.username.invalid">
+  </label>
+  @if (registerForm.controls.username.invalid && registerForm.controls.username.touched) {
+    <p class="error">Le username est requis</p>
+  }
+  <!----------------------------Email --------------------------->
+  <label for="email">
+    E-mail :
+    <input id="email" type="email" formControlName="email" [attr.aria-invalid]="registerForm.controls.email.invalid">
+  </label>
+  @if (registerForm.controls.email.invalid && registerForm.controls.email.touched) {
+    <p>Email est requis</p>
+  }
+  <!------------------------------ Password ------------------------------->
+  <label for="password">
+    Mot de passe :
+    <input id="password" type="password" formControlName="password"
+           [attr.aria-invalid]="registerForm.controls.password.invalid">
+  </label>
+  @if (registerForm.controls.password.invalid && registerForm.controls.password.touched) {
+    <p class="error">Mot de passe invalid</p>
+  }
+  <!----------------------------confirmPassword --------------------------->
+  <label for="confirmPassword">
+    Confirmer mot de passe :
+    <input id="confirmPassword" type="password" formControlName="confirmPassword"
+           [attr.aria-invalid]="registerForm.controls.confirmPassword.invalid">
+  </label>
+  @if (registerForm.hasError('passwordMismatch')) {
+    <div class="error">Les mots de passe ne correspondent pas.</div>
+  }
+  <!----------------------------Telephone --------------------------->
+  <label for="phone">
+    Téléphone :
+  </label>
+  <input id="phone" type="phone" formControlName="phone" [attr.aria-invalid]="registerForm.controls.phone.invalid">
+  @if (registerForm.controls.phone.invalid && registerForm.controls.phone.touched) {
+    <p class="error)">Le numéro téléphone est invalide</p>
+  }
+  <!----------------------------Adresse --------------------------->
+  <div formArrayName="addresses">
+    <label for="adresse">Adresse : </label>
+    @for (addresse of addresses.controls; track $index) {
+      <input id="adresse" [formControlName]="$index" placeholder="Adresse"
+             [attr.aria-invalid]="registerForm.controls.addresses.invalid">
+      @if ($index != 0) {
+        <button type="button" (click)="addresses.removeAt($index)">Supprimer</button>
+      }
+    }
+    <button type="button" (click)="addresses.push(fb.control(''))">Ajouter une adresse</button>
+
+  </div>
+  <!----------------------------Submit button --------------------------->
+  <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
+
+</form>

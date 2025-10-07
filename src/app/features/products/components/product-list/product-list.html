@@ -43,7 +43,7 @@
           <p>{{ nbInStock() }} produits en stock</p>
         </mat-card-content>
         <mat-card-actions>
-          <button matButton="elevated">Acheter</button>
+          <button matButton="elevated" (click)="productDetail(product.id)" >Voire le détail</button>
         </mat-card-actions>
       </mat-card>
 

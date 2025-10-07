@@ -3,7 +3,9 @@ import {ProductList} from '../components/product-list/product-list';
 
 @Component({
   selector: 'app-product.page',
-  imports: [ProductList],
+  imports: [
+    ProductList
+  ],
   template: `
     <h2>Nos Produits</h2>
     <app-product-list></app-product-list>

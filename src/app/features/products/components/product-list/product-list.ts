@@ -8,18 +8,23 @@ import {
   MatCardSubtitle,
   MatCardTitle
 } from '@angular/material/card';
-import {Product} from '../../../../models/product.model';
+import {Product} from '../../../../models/product-model';
 import {MatButton} from '@angular/material/button';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
-  imports: [CurrencyPipe, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardContent, MatCardActions, NgClass, MatCardImage, MatButton
+  imports: [CurrencyPipe, MatCard, MatCardHeader,
+    MatCardTitle, MatCardSubtitle, MatCardContent,
+    MatCardActions, NgClass, MatCardImage, MatButton,
   ],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss'
 })
 export class ProductList implements OnInit {
+  constructor(private router: Router,
+              ) {
+  }
   ngOnInit(): void {
       console.log('ngOnInit');
   }
@@ -32,7 +37,7 @@ export class ProductList implements OnInit {
     return this.products.filter((p) => p.inStock).length;
   }
 
-  getRandomColor(): string{
-    return this.colors[Math.floor(Math.random() * this.colors.length)];
+  productDetail(id: number) {
+    this.router.navigate(['/products', id]);
   }
 }

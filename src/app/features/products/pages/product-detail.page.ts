@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import {ProductCard} from '../components/product-card/product-card';
 
 @Component({
   selector: 'app-product-detail.page',
-  imports: [],
+  imports: [
+    ProductCard
+  ],
   template: `
     <p>
       product-detail.page works!

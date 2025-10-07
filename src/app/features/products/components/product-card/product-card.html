@@ -5,6 +5,9 @@
   <p>Stock : {{ inStock? 'disponible' : 'Repture'}}</p>
   <p>Caractéristiques : {{features.length}} options</p>
   <button (click)="onBuyClick()">Acheter</button>
+  <mat-card-actions>
+    <button matButton="elevated">Retour</button>
+  </mat-card-actions>
 </div>
 <mat-card class="example-card" appearance="outlined">
   <mat-card-header>

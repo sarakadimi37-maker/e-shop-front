@@ -9,6 +9,8 @@ export const routes: Routes = [
   { path: 'products/:id', loadComponent: () => import('../features/products/pages/product-detail.page')},
   { path: 'admin', loadComponent: () => import('../core/pages/admin.page'), canActivate: [authGuard]},
   { path: 'about', loadComponent: ()=> import('../core/pages/about.page')},
+  { path: 'register', loadComponent:()=>import('../features/auth/pages/register.page')},
+  { path: 'login', loadComponent:()=>import('../features/auth/pages/login.page')},
   { path: 'settings', loadComponent: () =>import('../core/pages/setting.page')},
   { path: 'error', loadComponent: () => import('../core/pages/error.page')},
   { path: '**', redirectTo: 'error'}
