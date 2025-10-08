@@ -3,7 +3,6 @@ import {Footer} from './core/components/footer/footer';
 import {Header} from './core/components/header/header';
 import {ProductList} from './features/products/components/product-list/product-list';
 import {NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet} from '@angular/router';
-import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-root',

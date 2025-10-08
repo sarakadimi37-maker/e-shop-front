@@ -7,9 +7,11 @@ import {ProductCard} from '../components/product-card/product-card';
     ProductCard
   ],
   template: `
+
     <p>
       product-detail.page works!
     </p>
+
   `,
   styles: ``
 })

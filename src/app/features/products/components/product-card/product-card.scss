@@ -1,7 +1,7 @@
-div{
-  border: 1px solid black;
-  padding: 1em;
-  background-color: #EE8B8B;
-
+.mat-mdc-raised-button:not(:disabled) {
+  color: green;
 }
-
+.mat-mdc-raised-button:not(:disabled):hover{
+  color: white;
+  background-color: rgba(11, 129, 16, 0.85);
+}

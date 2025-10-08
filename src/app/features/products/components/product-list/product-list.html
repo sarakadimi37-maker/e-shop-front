@@ -2,53 +2,11 @@
   <mat-card-title>Nos produits</mat-card-title>
   <div class="list-products">
     @for (product of products; track product.id) {
-      <mat-card class="product" [ngClass]="product.inStock ? 'stock' : 'out-of-stock'" appearance="outlined">
-        <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-subtitle>{{product.name}}</mat-card-subtitle>
-        </mat-card-header>
-        <img mat-card-image [src]="product.imageUrl" alt="Photo of product">
-        <mat-card-content>
-          <p>{{ product.description}}</p>
-          <!-- <p>{{product.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr' }}</p>-->
-          <p>{{product.price | currency : 'EUR'}}</p>
-          <p>⭐{{product.rating}}/5</p>
-          @switch (product.category){
-            @case ('gaming'){
-              <span class="sports">🎮 Jeux vidéo</span>
-            }
-            @case ('clothing'){
-              <span class="badge red">👕 Mode</span>
-            }
-            @case ('home'){
-              <span class="badge green">🏠 Maison</span>
-            }
-            @case ('electronics'){
-              <span class="badge blue">📱 High-tech</span>
-            }
-            @case ('sports'){
-              <span class="badge blanc">⚽ Sport</span>
-            }
-            @default {
-              <span class="badge gray">📦 Autre</span>
-            }
-          }
-
-          @if (product.inStock) {
-            <p>✅ Disponible</p>
-          } @else {
-            <p>❌ En rupture</p>
-          }
-          <p>{{products.length}} produits au total</p>
-          <p>{{ nbInStock() }} produits en stock</p>
-        </mat-card-content>
-        <mat-card-actions>
-          <button matButton="elevated" (click)="productDetail(product.id)" >Voire le détail</button>
-        </mat-card-actions>
-      </mat-card>
-
+      <app-product-card [product]="product"></app-product-card>
     } @empty {
       <p>Aucun produit disponible...</p>
     }
+    <p>{{products.length}} produits au total</p>
+    <p>{{ nbInStock() }} produits en stock</p>
   </div>
 </section>

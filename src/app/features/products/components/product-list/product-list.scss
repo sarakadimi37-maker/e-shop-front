@@ -6,7 +6,6 @@
 
 .product {
   flex-direction: column;
-
   padding: 1rem;
 }
 .stock {
@@ -23,13 +22,7 @@ section{
   max-width: 1024px;
 }
 
-.mat-mdc-raised-button:not(:disabled) {
-  color: green;
-}
-.mat-mdc-raised-button:not(:disabled):hover{
-  color: white;
-  background-color: rgba(11, 129, 16, 0.85);
-}
+
 .mat-mdc-card-title {
   padding: 10px;
 }

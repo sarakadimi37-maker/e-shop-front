@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, computed, effect, inject, input} from '@angular/core';
 import {
   MatCard,
   MatCardActions,
@@ -8,7 +8,9 @@ import {
   MatCardTitle
 } from '@angular/material/card';
 import {MatButton} from '@angular/material/button';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
+import {Product} from '../../../../models/product-model';
+import {CurrencyPipe, NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
@@ -18,36 +20,35 @@ import {Router} from '@angular/router';
     MatCardContent,
     MatCardHeader,
     MatCardSubtitle,
-    MatCardTitle,
     MatButton,
-    MatCardImage
+    MatCardImage,
+    CurrencyPipe,
+    NgClass,
+    RouterLink
   ],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss'
 })
-export class ProductCard {
-  title: string = "mac bookPro";
-  price: number = 299;
-  inStock: boolean = true;
-  discount: number = 0.1;
-  features: string[] = ['Écran Retina', 'M1 Pro', '16 Go RAM'];
+ export class ProductCard {
+  product = input.required<Product>(); // input
 
-  constructor(private router: Router,
-              private location: Location,) {
-  }
+  displayPrice = computed(()=>{
+    const p = this.product();
+    return p.inStock ? `${p.price}€` : 'Prix indisponible';
+  });
 
-  getDiscountPrice(): number {
-    return this.price -( 1- this.discount);
-  }
-  onBuyClick(): void {
-    if(this.inStock){
-      console.log(`${this.title} ajouter au panier!`);
-    }
+  constructor() {
+    effect(() => {
+      console.log('Nouveau produit reçu : ', this.product().name);
+    });
   }
 
-/*
-  goBack() {
-    this.location.assign('../features/products/pages/product-detail.page');
+  onAddToCart(): void {
+    console.log(`${this.product().name} ajouter au panier!`);
   }
- */
+
+  onToogleFavorite(): void {
+    console.log(`${this.product().name} ajouter au favoris!`);{}
+  }
+
 }

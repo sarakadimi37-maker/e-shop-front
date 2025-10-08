@@ -1,30 +1,45 @@
-<div class="product-card">
-  <h3>{{ title }}</h3>
-  <p>Prix normal : {{ price }}€</p>
-  <p>Prix avec réduction : {{getDiscountPrice()}}</p>
-  <p>Stock : {{ inStock? 'disponible' : 'Repture'}}</p>
-  <p>Caractéristiques : {{features.length}} options</p>
-  <button (click)="onBuyClick()">Acheter</button>
-  <mat-card-actions>
-    <button matButton="elevated">Retour</button>
-  </mat-card-actions>
-</div>
-<mat-card class="example-card" appearance="outlined">
+<mat-card class="product" [ngClass]="product().inStock ? 'stock' : 'out-of-stock'" appearance="outlined">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+    <mat-card-subtitle>{{product().name}}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="https://material.angular.dev/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <img mat-card-image [src]="product().imageUrl" alt="Photo of product" [routerLink]="['/products',product().id]">
   <mat-card-content>
-    <p>
-      The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-      A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-      bred for hunting.
-    </p>
+    <p>{{ product().description}}</p>
+    <!-- <p>{{product.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr' }}</p>-->
+    <p>{{product().price | currency : 'EUR'}}</p>
+    <p>⭐{{product().rating}}/5</p>
+    @switch (product().category){
+      @case ('gaming'){
+        <span class="sports">🎮 Jeux vidéo</span>
+      }
+      @case ('clothing'){
+        <span class="badge red">👕 Mode</span>
+      }
+      @case ('home'){
+        <span class="badge green">🏠 Maison</span>
+      }
+      @case ('electronics'){
+        <span class="badge blue">📱 High-tech</span>
+      }
+      @case ('sports'){
+        <span class="badge blanc">⚽ Sport</span>
+      }
+      @default {
+        <span class="badge gray">📦 Autre</span>
+      }
+    }
+    @if (product().inStock) {
+      <p>✅ Disponible</p>
+    } @else {
+      <p>❌ En rupture</p>
+    }
   </mat-card-content>
   <mat-card-actions>
-    <button matButton>LIKE</button>
-    <button matButton>SHARE</button>
+    @if (product().inStock){
+      <button matButton="elevated" (click)="onAddToCart()" >Ajouter au panier</button>
+    } @else {
+      <button matButton="elevated" [disabled]="true" class="btn-disabled">En repture</button>
+    }
   </mat-card-actions>
 </mat-card>
+

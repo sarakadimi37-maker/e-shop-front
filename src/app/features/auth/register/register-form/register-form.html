@@ -48,7 +48,7 @@
   <div formArrayName="addresses">
     <label for="adresse">Adresse : </label>
     @for (addresse of addresses.controls; track $index) {
-      <input id="adresse" [formControlName]="$index" placeholder="Adresse"
+      <input id="adresse" [formControlName]="$index" placeholder="Adresse" [value]="addresses.value"
              [attr.aria-invalid]="registerForm.controls.addresses.invalid">
       @if ($index != 0) {
         <button type="button" (click)="addresses.removeAt($index)">Supprimer</button>

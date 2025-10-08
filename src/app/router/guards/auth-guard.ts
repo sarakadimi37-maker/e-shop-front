@@ -7,6 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     console.log(localStorage.getItem('iLoveSalmon'));
     return true;
   }else {
+    // redirection vers la page erreur
     return router.createUrlTree(['/error']);
   }
 
