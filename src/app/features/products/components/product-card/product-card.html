@@ -2,7 +2,41 @@
   <mat-card-header>
     <mat-card-subtitle>{{product().name}}</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="product().imageUrl" alt="Photo of product" [routerLink]="['/products',product().id]">
+  <img mat-card-image [src]="product().imageUrl" [alt]="product().name" [routerLink]="['/products',product().id]">
+  <div>
+    <button (click)="onToogleFavorite()" >{{ isFavorite() ? '❤️' : '🤍' }}</button>
+    <button  type="button" (click)="onToogleShowRatingForm()">Noter ce produit</button>
+  </div>
+  @if (showRatingForm){
+    <form [formGroup]="ratingForm">
+      <h4>Votre avis compte</h4>
+      <mat-form-field>
+        <mat-label>Avis</mat-label>
+        <select matNativeControl formControlName="rate">
+          <option value="1">⭐</option>
+          <option value="2">⭐⭐</option>
+          <option value="3">⭐⭐⭐</option>
+          <option value="4">⭐⭐⭐⭐</option>
+          <option value="5">⭐⭐⭐⭐⭐</option>
+        </select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Commentaire</mat-label>
+        <textarea matInput
+                  formControlName="comment"
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5">
+    </textarea>
+      </mat-form-field>
+      <button type="submit" [disabled]="ratingForm.invalid" (click)="sendRate()">Envoyer</button>
+    </form>
+  }
+
+
+
+
   <mat-card-content>
     <p>{{ product().description}}</p>
     <!-- <p>{{product.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr' }}</p>-->

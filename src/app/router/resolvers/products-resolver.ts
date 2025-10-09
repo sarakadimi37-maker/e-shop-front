@@ -68,5 +68,5 @@ const products: Product[]  = [
 export const productsResolver: ResolveFn<Product[]> = (route, state) => {
 
 
-  return of(products).pipe(delay(3000));
+  return of(products).pipe(delay(1000));
 };
