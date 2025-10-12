@@ -5,6 +5,8 @@
   <img mat-card-image [src]="product().imageUrl" [alt]="product().name" [routerLink]="['/products',product().id]">
   <div>
     <button (click)="onToogleFavorite()" >{{ isFavorite() ? '❤️' : '🤍' }}</button>
+
+ <------- formulaire de note ----------------------->
     <button  type="button" (click)="onToogleShowRatingForm()">Noter ce produit</button>
   </div>
   @if (showRatingForm){
@@ -33,9 +35,7 @@
       <button type="submit" [disabled]="ratingForm.invalid" (click)="sendRate()">Envoyer</button>
     </form>
   }
-
-
-
+  <------- Category ----------------------->
 
   <mat-card-content>
     <p>{{ product().description}}</p>

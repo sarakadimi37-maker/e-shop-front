@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, signal} from '@angular/core';
+import {getCurrentInjector} from '@angular/core/primitives/di';
 
 @Component({
   selector: 'app-counter',
@@ -7,22 +8,22 @@ import { Component } from '@angular/core';
   styleUrl: './counter.scss'
 })
 export class Counter {
-  count: number = 0;
-  inputValu : string = '';
+  count = signal(0); // ===> Création de signal la nouvelle façon
+  inputCurrentValu : string = '';
 
   increment():void{
-    this.count++;
+    this.count.update(inputCurrentValu  => inputCurrentValu + 1);
   }
 
   decrement():void{
-    this.count--;
+    this.count.update(inputCurrentValu  => inputCurrentValu - 1);
   }
   reset():void{
-    this.count = 0;
+    this.count.set(0);
   }
 
   onKeyUp(event: KeyboardEvent){
-    this.inputValu = (event.target as HTMLInputElement).value;
+    this.inputCurrentValu = (event.target as HTMLInputElement).value;
   }
 
 }

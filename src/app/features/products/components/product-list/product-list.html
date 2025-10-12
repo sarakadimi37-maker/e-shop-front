@@ -4,8 +4,11 @@
     <span class="counter">🛒 Panier: {{ getCartCount() }}</span>
     <span class="counter">❤️ Favoris: {{ getFavoritesCount() }}</span>
   </div>
+  <app-filter
+    (chosenCategory)="categorySignal.set($event)"
+  ></app-filter>
   <div class="list-products">
-    @for (product of products; track product.id) {
+    @for (product of viewProducts(); track product.id) {
       <app-product-card
         [product]="product"
         [isFavorite]="isInFavorites(product.id)"

@@ -1,8 +1,8 @@
 <div class="counter">
-  <h2>Compteur : {{ count }}</h2>
-  <button (click)="increment()">+</button>
-  <button (click)="decrement()">-</button>
+  <h2>Compteur : {{ count() }}</h2>
+  <button (click)="increment()">+1</button>
+  <button (click)="decrement()">-1</button>
   <button (click)="reset()">Reset</button>
-  <input (keyup)="onKeyUp($event)" [value]="inputValu">
-  <p>Tu as tapé : {{inputValu}}</p>
+  <input (keyup)="onKeyUp($event)" [value]="inputCurrentValu">
+  <p>Tu as tapé : {{inputCurrentValu}}</p>
 </div>

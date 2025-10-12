@@ -1,15 +1,18 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, computed, inject, OnInit, signal} from '@angular/core';
 import {MatCardTitle} from '@angular/material/card';
 import {Product} from '../../../../models/product-model';
 import {ActivatedRoute} from '@angular/router';
 import {ProductCard} from '../product-card/product-card';
 import {Review} from '../../../../models/Review-model';
+import {Filter} from '../filter/filter';
+import {single} from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
   imports: [
     MatCardTitle,
-    ProductCard
+    ProductCard,
+    Filter
   ],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss'
@@ -17,13 +20,19 @@ import {Review} from '../../../../models/Review-model';
 export class ProductList implements OnInit {
   private route = inject(ActivatedRoute);
   products: Product[] = this.route.snapshot.data['myProducts'];
+  categorySignal = signal('ALL');
+
   cartItems: Product[] = [];
   faviriteIds: number[] = [];
-  reviews: Review[] = [];
+  historiqueAllReviews: Review[] = [];
+
+
 
   ngOnInit(): void {
     console.log('ngOnInit');
   }
+
+
 
   // methode appelée par un output envoyé depuis l'enfant
   onProductAddedToCart(product: Product): void {
@@ -67,21 +76,29 @@ export class ProductList implements OnInit {
     return this.products.filter((p) => p.inStock).length;
   }
   onAddedRate(review: Review): void {
-    this.reviews.push(review);
-    // calcule moyen des notes
-    this.products.forEach(p => {
-      const productId = p.id;
-      const currentProductReview = this.reviews.filter(r => r.productId === productId);
-      let totalRate = 0;
-      currentProductReview.forEach((review: Review) => {
-        totalRate += review.rating;
-      })
-      const avrageRating = totalRate / currentProductReview.length;
-      p.rating = avrageRating;
-    })
+    const productId = review.productId;
+    let produit = this.products.find((product: Product) => product.id === productId);
+    if(produit) {
+      this.historiqueAllReviews.push(review);
+      let historiqueReviewProduit = this.historiqueAllReviews.filter(r => r.productId === productId);
 
-     console.log("review =>" + this.reviews);
+      let totalRate = 0;
+      historiqueReviewProduit.forEach((review: Review) => {
+        totalRate += review.rating;
+      });
+      produit.rating = totalRate / historiqueReviewProduit.length;
+    }
+     console.log("review =>" + this.historiqueAllReviews);
   }
 
+  viewProducts = computed(()=>{
+    const category = this.categorySignal();
+    console.log(`category in parent -> ${category}`);
+    if(category === 'ALL') {
+      return this.products;
+    }else{
+      return this.products.filter(p => p.category === category);
+    }
+  });
 
 }

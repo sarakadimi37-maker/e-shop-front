@@ -1,0 +1,7 @@
+<div>
+  @for (category of categories; track $index){
+    <button (click)="selectedCategory(category.value)">{{ category.label }}</button>
+  }
+  <button (click)="resetFilter()">Réinitialiser</button>
+
+</div>

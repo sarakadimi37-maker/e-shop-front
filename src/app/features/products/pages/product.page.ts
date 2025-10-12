@@ -7,7 +7,6 @@ import {ProductList} from '../components/product-list/product-list';
     ProductList
   ],
   template: `
-    <h2>Nos Produits</h2>
     <app-product-list></app-product-list>
   `,
   styles: ``

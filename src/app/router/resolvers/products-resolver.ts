@@ -52,16 +52,7 @@ const products: Product[]  = [
     category: 'sports',
     inStock: false,
     rating: 4.3
-  },  {
-    id: 12,
-    name: 'Yoga Mat Premium',
-    description: 'Tapis de yoga antidérapant 6mm épaisseur, écologique',
-    price: 45.50,
-    imageUrl: 'https://placehold.co/300x200/9370DB/ffffff?text=Yoga',
-    category: 'sports',
-    inStock: false,
-    rating: 4.3
-  },
+  }
 
 ];
 
