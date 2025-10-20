@@ -1,4 +1,4 @@
-<nav role="menubar">
+<nav role="menubar" class="header">
   <div class="mobile">
     <mat-icon aria-hidden="false" aria-label="menu icon" fontIcon="menu" (click)="toggleMenu()"></mat-icon>
     <div id="mobile-menu" [ngClass]="isOpen? 'open': ''">
@@ -6,18 +6,30 @@
                 (click)="toggleMenu()"></mat-icon>
       <ul>
         <li>
-          <a routerLink="/" (click)="toggleMenu()">Accueil</a>
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="toggleMenu()">Accueil</a>
         </li>
         <li>
-          <a routerLink="/products" (click)="toggleMenu()">Produits</a>
+          <a class="nav-link" routerLink="/products"  routerLinkActive="active" (click)="toggleMenu()">Produits</a>
         </li>
         <li>
-          <a routerLink="about" (click)="toggleMenu()">À propos</a>
+          <a class="nav-link" routerLink="/about"  routerLinkActive="active" (click)="toggleMenu()">À propos</a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/register"  routerLinkActive="active" (click)="toggleMenu()">Register</a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/login"  routerLinkActive="active" (click)="toggleMenu()">Login</a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/settings"  routerLinkActive="active" (click)="toggleMenu()">Configuration</a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/admin"  routerLinkActive="active" (click)="toggleMenu()">Admin</a>
         </li>
       </ul>
     </div>
   </div>
-  <header class="header desktop">
+  <header class="desktop">
     <div class="container">
       <div class="header-content">
         <a routerLink="/" class="logo">
@@ -30,14 +42,16 @@
           <span>Ma Boutique</span>
         </a>
         <nav class="header-nav">
-          <a routerLink="/" class="nav-link">Accueil</a>
-          <a routerLink="/products" class="nav-link active">Produits</a>
-          <a routerLink="/admin" class="nav-link">Admin</a>
-          <a routerLink="/register" class="nav-link">Register</a>
-          <a routerLink="/login" class="nav-link">Login</a>
-          <a routerLink="/settings" class="nav-link">Configuration</a>
-          <a routerLink="/error" class="nav-link">Erreur</a>
+          <a routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Accueil</a>
+          <a routerLink="/products" routerLinkActive="active" class="nav-link">Produits</a>
+          <a routerLink="/admin"  routerLinkActive="active" class="nav-link">Admin</a>
+          <a routerLink="/register" routerLinkActive="active" class="nav-link">Register</a>
+          <a routerLink="/login" routerLinkActive="active" class="nav-link">Login</a>
+          <a routerLink="/settings" routerLinkActive="active" class="nav-link">Configuration</a>
+          <a routerLink="/error" routerLinkActive="active" class="nav-link">Erreur</a>
         </nav>
+        <!------------------------------- Voir le favoris ----------------------------------->
+
         <div class="header-actions">
           <a href="#" class="icon-btn" aria-label="Favoris">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,6 +61,7 @@
             </svg>
             <span class="badge">3</span>
           </a>
+          <!------------------------------- Voir le panier ----------------------------------->
           <a href="panier-ecommerce.html" class="icon-btn" aria-label="Panier">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 6L10 6L13 19L25 19L28 10L11 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"

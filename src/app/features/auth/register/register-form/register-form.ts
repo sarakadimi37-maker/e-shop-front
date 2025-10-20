@@ -7,16 +7,26 @@ import {
   Validators
 } from '@angular/forms';
 import {ProfileFormModel} from '../../../../models/profile-form-model';
+import {RouterLink} from '@angular/router';
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-register-form',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink,
+    NgClass
   ],
   templateUrl: './register-form.html',
   styleUrl: './register-form.scss'
 })
 export class RegisterForm {
+  hasMajuscule = false;
+  hasMinicule = false;
+  hasNumber = false;
+  hasCarecter = false;
+  hasPwdMinLenght = false;
+
   passwordRegex = '^(?=(.*[a-z]))(?=(.*[A-Z]))(?=(.*\\d))(?=(.*[\\W_]))[\\S]{6,}$';
   phoneRegex = '^\\+(\\d{1,3})[\\s\\-\\(\\)]?(\\d{1,4})[\\s\\-\\(\\)]?(\\d{1,4})[\\s\\-\\(\\)]?(\\d{1,4})$';
   passwordMatchValidator: ValidatorFn = (group: AbstractControl<FormGroup>): ValidationErrors | null => {
@@ -43,6 +53,39 @@ export class RegisterForm {
     phone: this.fb.control('', [Validators.required, Validators.pattern(this.phoneRegex)]),
     addresses: this.addresses,
   }, {validators: this.passwordMatchValidator});
+
+
+
+  checkPwdConstaint() {
+    const pwd = this.registerForm.controls.password.value;
+    if (pwd.match("[A-Z]+")){
+      this.hasMajuscule = true;
+    }else {
+      this.hasMajuscule = false;
+    }
+    if (pwd.match("[a-z]+")){
+      this.hasMinicule = true;
+    }else {
+      this.hasMinicule = false;
+    }
+    if (pwd.match("[0-9]+")){
+      this.hasNumber = true;
+    }else {
+      this.hasNumber = false;
+    }
+    // à verifier
+    if (pwd.match("[\*\-\+§%\$£€@#&|?%!;_]+")){
+      this.hasCarecter = true;
+    }else {
+      this.hasCarecter = false;
+    }
+    if (pwd.length >= 6){
+      this.hasPwdMinLenght = true;
+    }else {
+      this.hasPwdMinLenght = false;
+    }
+
+  }
 
 
 }

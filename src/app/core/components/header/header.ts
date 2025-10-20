@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import {NgClass} from '@angular/common';
 
@@ -8,7 +8,8 @@ import {NgClass} from '@angular/common';
   imports: [
     RouterLink,
     MatIconModule,
-    NgClass
+    NgClass,
+    RouterLinkActive
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss'

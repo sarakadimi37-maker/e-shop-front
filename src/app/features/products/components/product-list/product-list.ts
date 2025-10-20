@@ -1,16 +1,13 @@
 import {Component, computed, inject, OnInit, signal} from '@angular/core';
-import {MatCardTitle} from '@angular/material/card';
 import {Product} from '../../../../models/product-model';
 import {ActivatedRoute} from '@angular/router';
 import {ProductCard} from '../product-card/product-card';
 import {Review} from '../../../../models/Review-model';
 import {Filter} from '../filter/filter';
-import {single} from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
   imports: [
-    MatCardTitle,
     ProductCard,
     Filter
   ],
@@ -20,19 +17,15 @@ import {single} from 'rxjs';
 export class ProductList implements OnInit {
   private route = inject(ActivatedRoute);
   products: Product[] = this.route.snapshot.data['myProducts'];
-  categorySignal = signal('ALL');
+  categorySignal = signal<string[]>([]);
 
   cartItems: Product[] = [];
   faviriteIds: number[] = [];
   historiqueAllReviews: Review[] = [];
 
-
-
   ngOnInit(): void {
     console.log('ngOnInit');
   }
-
-
 
   // methode appelée par un output envoyé depuis l'enfant
   onProductAddedToCart(product: Product): void {
@@ -92,12 +85,12 @@ export class ProductList implements OnInit {
   }
 
   viewProducts = computed(()=>{
-    const category = this.categorySignal();
-    console.log(`category in parent -> ${category}`);
-    if(category === 'ALL') {
+    const categories : string[] = this.categorySignal();
+    console.log(`category in parent -> ${categories}`);
+    if(categories.length === 0) {
       return this.products;
     }else{
-      return this.products.filter(p => p.category === category);
+      return this.products.filter(p => categories.includes(p.category));
     }
   });
 

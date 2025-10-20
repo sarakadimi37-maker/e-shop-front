@@ -1,79 +1,104 @@
-<mat-card class="product" [ngClass]="product().inStock ? 'stock' : 'out-of-stock'" appearance="outlined">
-  <mat-card-header>
-    <mat-card-subtitle>{{product().name}}</mat-card-subtitle>
-  </mat-card-header>
-  <img mat-card-image [src]="product().imageUrl" [alt]="product().name" [routerLink]="['/products',product().id]">
-  <div>
-    <button (click)="onToogleFavorite()" >{{ isFavorite() ? '❤️' : '🤍' }}</button>
 
- <------- formulaire de note ----------------------->
-    <button  type="button" (click)="onToogleShowRatingForm()">Noter ce produit</button>
-  </div>
-  @if (showRatingForm){
-    <form [formGroup]="ratingForm">
-      <h4>Votre avis compte</h4>
-      <mat-form-field>
-        <mat-label>Avis</mat-label>
-        <select matNativeControl formControlName="rate">
-          <option value="1">⭐</option>
-          <option value="2">⭐⭐</option>
-          <option value="3">⭐⭐⭐</option>
-          <option value="4">⭐⭐⭐⭐</option>
-          <option value="5">⭐⭐⭐⭐⭐</option>
-        </select>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Commentaire</mat-label>
-        <textarea matInput
-                  formControlName="comment"
-                  cdkTextareaAutosize
-                  #autosize="cdkTextareaAutosize"
-                  cdkAutosizeMinRows="1"
-                  cdkAutosizeMaxRows="5">
+<!------- produit ----------------------->
+
+  <article class="product-card">
+    <div class="product-image-wrapper">
+      <button class="btn-favorite" (click)="onToogleFavorite()" [ngClass]="isFavorite() ? 'active' : '' " aria-label="Ajouter aux favoris">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 17.5L8.79 16.4C4.5 12.64 1.67 10.13 1.67 7.08C1.67 4.57 3.57 2.67 6.08 2.67C7.53 2.67 8.93 3.34 10 4.42C11.07 3.34 12.47 2.67 13.92 2.67C16.43 2.67 18.33 4.57 18.33 7.08C18.33 10.13 15.5 12.64 11.21 16.4L10 17.5Z"/>
+          </svg>
+      </button>
+      <img  [src]="product().imageUrl" [alt]="product().name" [routerLink]="['/products',product().id]" class="product-image">
+      @switch (product().category){
+        @case ('gaming'){
+          <span class="product-category">🎮 Jeux vidéo</span>
+        }
+        @case ('clothing'){
+          <span class="product-category">👕 Mode</span>
+        }
+        @case ('home'){
+          <span class="product-category">🏠 Maison</span>
+        }
+        @case ('electronics'){
+          <span class="product-category">📱 High-tech</span>
+        }
+        @case ('sports'){
+          <span class="product-category">⚽ Sport</span>
+        }
+        @default {
+          <span class="product-category">📦 Autre</span>
+        }
+      }
+    </div>
+    <div class="product-info">
+      <h3 class="product-name">{{product().name}}</h3>
+      <p class="product-description">{{product().description}}</p>
+      <div class="product-rating">
+        <div class="stars-display">
+          <span class="stars filled">★★★★★</span>
+        </div>
+        <span class="rating-count">({{ product().rating }} avis)</span>
+      </div>
+      <div class="product-stock" [ngClass]="product().inStock ? 'in-stock' : 'out-stock'">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="7" cy="7" r="7" fill="currentColor"/>
+          <path d="M4 7L6 9L10 5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        @if (product().inStock) {
+          <span> Disponible</span>
+        } @else {
+          <span> En rupture</span>
+        }
+      </div>
+      <div class="product-footer">
+        <div class="product-price">
+          <span class="price-current">{{product().price | currency : 'EUR'}}</span>
+        </div>
+          <button class="btn-add-to-cart" (click)="onAddToCart()" [disabled]="!product().inStock">
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 3L5 3L6.5 11L14 11L16 6L6.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="6.5" cy="14.5" r="1" fill="currentColor"/>
+              <circle cx="12.5" cy="14.5" r="1" fill="currentColor"/>
+            </svg>
+            Ajouter
+          </button>
+      </div>
+      <mat-card class="product" [ngClass]="product().inStock ? 'stock' : 'out-of-stock'" appearance="outlined">
+
+
+        <!------- formulaire de note ----------------------->
+        <button  type="button" (click)="onToogleShowRatingForm()">Noter ce produit</button>
+        @if (showRatingForm){
+          <form [formGroup]="ratingForm">
+            <h4>Votre avis compte</h4>
+            <mat-form-field>
+              <mat-label>Avis</mat-label>
+              <select matNativeControl formControlName="rate">
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+              </select>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Commentaire</mat-label>
+              <textarea matInput
+                        formControlName="comment"
+                        cdkTextareaAutosize
+                        #autosize="cdkTextareaAutosize"
+                        cdkAutosizeMinRows="1"
+                        cdkAutosizeMaxRows="5">
     </textarea>
-      </mat-form-field>
-      <button type="submit" [disabled]="ratingForm.invalid" (click)="sendRate()">Envoyer</button>
-    </form>
-  }
-  <------- Category ----------------------->
+            </mat-form-field>
+            <button type="submit" [disabled]="ratingForm.invalid" (click)="sendRate()">Envoyer</button>
+          </form>
+        }
+      </mat-card>
+    </div>
+  </article>
 
-  <mat-card-content>
-    <p>{{ product().description}}</p>
-    <!-- <p>{{product.price | currency : 'EUR' : 'symbol' : '1.2-2' : 'fr' }}</p>-->
-    <p>{{product().price | currency : 'EUR'}}</p>
-    <p>⭐{{product().rating}}/5</p>
-    @switch (product().category){
-      @case ('gaming'){
-        <span class="sports">🎮 Jeux vidéo</span>
-      }
-      @case ('clothing'){
-        <span class="badge red">👕 Mode</span>
-      }
-      @case ('home'){
-        <span class="badge green">🏠 Maison</span>
-      }
-      @case ('electronics'){
-        <span class="badge blue">📱 High-tech</span>
-      }
-      @case ('sports'){
-        <span class="badge blanc">⚽ Sport</span>
-      }
-      @default {
-        <span class="badge gray">📦 Autre</span>
-      }
-    }
-    @if (product().inStock) {
-      <p>✅ Disponible</p>
-    } @else {
-      <p>❌ En rupture</p>
-    }
-  </mat-card-content>
-  <mat-card-actions>
-    @if (product().inStock){
-      <button matButton="elevated" (click)="onAddToCart()" >Ajouter au panier</button>
-    } @else {
-      <button matButton="elevated" [disabled]="true" class="btn-disabled">En repture</button>
-    }
-  </mat-card-actions>
-</mat-card>
+
+
+
 

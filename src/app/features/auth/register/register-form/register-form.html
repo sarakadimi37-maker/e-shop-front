@@ -1,63 +1,183 @@
-<!-- profile-form.page.html -->
-<form [formGroup]="registerForm" style="
-    display: flex;
-    flex-direction: column;">
-  <!----------------------------Username --------------------------->
-  <label for="username">username :
-    <input id="username" type="text" formControlName="username"
-           [attr.aria-invalid]="registerForm.controls.username.invalid">
-  </label>
-  @if (registerForm.controls.username.invalid && registerForm.controls.username.touched) {
-    <p class="error">Le username est requis</p>
-  }
-  <!----------------------------Email --------------------------->
-  <label for="email">
-    E-mail :
-    <input id="email" type="email" formControlName="email" [attr.aria-invalid]="registerForm.controls.email.invalid">
-  </label>
-  @if (registerForm.controls.email.invalid && registerForm.controls.email.touched) {
-    <p>Email est requis</p>
-  }
-  <!------------------------------ Password ------------------------------->
-  <label for="password">
-    Mot de passe :
-    <input id="password" type="password" formControlName="password"
-           [attr.aria-invalid]="registerForm.controls.password.invalid">
-  </label>
-  @if (registerForm.controls.password.invalid && registerForm.controls.password.touched) {
-    <p class="error">Mot de passe invalid</p>
-  }
-  <!----------------------------confirmPassword --------------------------->
-  <label for="confirmPassword">
-    Confirmer mot de passe :
-    <input id="confirmPassword" type="password" formControlName="confirmPassword"
-           [attr.aria-invalid]="registerForm.controls.confirmPassword.invalid">
-  </label>
-  @if (registerForm.hasError('passwordMismatch')) {
-    <div class="error">Les mots de passe ne correspondent pas.</div>
-  }
-  <!----------------------------Telephone --------------------------->
-  <label for="phone">
-    Téléphone :
-  </label>
-  <input id="phone" type="phone" formControlName="phone" [attr.aria-invalid]="registerForm.controls.phone.invalid">
-  @if (registerForm.controls.phone.invalid && registerForm.controls.phone.touched) {
-    <p class="error)">Le numéro téléphone est invalide</p>
-  }
-  <!----------------------------Adresse --------------------------->
-  <div formArrayName="addresses">
-    <label for="adresse">Adresse : </label>
-    @for (addresse of addresses.controls; track $index) {
-      <input id="adresse" [formControlName]="$index" placeholder="Adresse" [value]="addresses.value"
-             [attr.aria-invalid]="registerForm.controls.addresses.invalid">
-      @if ($index != 0) {
-        <button type="button" (click)="addresses.removeAt($index)">Supprimer</button>
-      }
-    }
-    <button type="button" (click)="addresses.push(fb.control(''))">Ajouter une adresse</button>
-
+<body>
+<div class="auth-container">
+  <!------------------- Colonne gauche avec illustration ------------------->
+  <div class="auth-illustration">
+    <div class="illustration-content">
+      <a href="" class="logo-large">
+        <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 12L20 12L26 38L50 38L56 20L22 20" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="26" cy="50" r="4" fill="currentColor"/>
+          <circle cx="46" cy="50" r="4" fill="currentColor"/>
+        </svg>
+        <span>Ma Boutique</span>
+      </a>
+      <h1 class="illustration-title">Rejoignez-nous !</h1>
+      <p class="illustration-text">Créez votre compte en quelques secondes et profitez de tous nos avantages exclusifs.</p>
+      <div class="illustration-features">
+        <div class="feature-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <span>Compte personnel sécurisé</span>
+        </div>
+        <div class="feature-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 8V6C16 4.93913 15.5786 3.92172 14.8284 3.17157C14.0783 2.42143 13.0609 2 12 2C10.9391 2 9.92172 2.42143 9.17157 3.17157C8.42143 3.92172 8 4.93913 8 6V8M5 8H19L20 21H4L5 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Commandes rapides et faciles</span>
+        </div>
+        <div class="feature-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>Promotions et récompenses</span>
+        </div>
+      </div>
+    </div>
   </div>
-  <!----------------------------Submit button --------------------------->
-  <button type="submit" [disabled]="registerForm.invalid">S'inscrire</button>
 
-</form>
+  <!------------------------------------- Colonne droite avec formulaire ----------------------->
+  <div class="auth-form-wrapper">
+    <div class="auth-form-container">
+      <div class="form-header">
+        <h2>Créer un compte</h2>
+        <p class="form-subtitle">Remplissez le formulaire pour commencer</p>
+      </div>
+
+      <form class="auth-form" [formGroup]="registerForm">
+        <!----------------------------Username --------------------------->
+        <div class="form-group">
+          <label for="username" class="form-label">Nom d'utilisateur</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 17V15C16 13.9391 15.5786 12.9217 14.8284 12.1716C14.0783 11.4214 13.0609 11 12 11H5C3.93913 11 2.92172 11.4214 2.17157 12.1716C1.42143 12.9217 1 13.9391 1 15V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="8.5" cy="5" r="4" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <input type="text" id="username" class="form-input" placeholder="Votre nom" formControlName="username"
+                   [attr.aria-invalid]="registerForm.controls.username.invalid">
+            @if (registerForm.controls.username.invalid && registerForm.controls.username.touched) {
+              <p class="error">Le username est requis</p>
+            }
+          </div>
+        </div>
+        <!----------------------------Email --------------------------->
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 4H17C17.55 4 18 4.45 18 5V15C18 15.55 17.55 16 17 16H3C2.45 16 2 15.55 2 15V5C2 4.45 2.45 4 3 4Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M18 5L10 11L2 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input type="email" id="email" class="form-input" placeholder="Votre email" formControlName="email" [attr.aria-invalid]="registerForm.controls.email.invalid">
+            @if (registerForm.controls.email.invalid && registerForm.controls.email.touched) {
+              <p>Email est requis</p>
+            }
+          </div>
+        </div>
+        <!----------------------------Telephone --------------------------->
+        <div class="form-group">
+          <label for="phone" class="form-label">Numéro de téléphone</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M18 14.5V16.5C18.0011 16.6989 17.9441 16.8943 17.8367 17.0627C17.7294 17.2312 17.5761 17.3657 17.3952 17.4511C17.2142 17.5365 17.0127 17.5694 16.8144 17.5461C16.6161 17.5229 16.4289 17.4446 16.2725 17.32L14.5 16C13.9696 15.6134 13.5152 15.1324 13.16 14.58L12.16 13C11.9578 12.6935 11.8359 12.3403 11.8056 11.9733C11.7753 11.6063 11.8376 11.2373 11.9867 10.9C12.1357 10.5627 12.3668 10.2675 12.6588 10.0407C12.9509 9.81391 13.2949 9.66279 13.66 9.6L15.66 9.1C15.8589 9.05334 16.0661 9.05637 16.2636 9.10884C16.4611 9.16131 16.6428 9.26162 16.7932 9.40084C16.9436 9.54006 17.0583 9.71389 17.1276 9.90726C17.1969 10.1006 17.2188 10.3078 17.1917 10.5117L16.8333 13.5C16.7833 13.8667 16.6 14.2 16.3167 14.45C16.0333 14.7 15.6667 14.8333 15.2917 14.8333H14.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M6 2H3C2.44772 2 2 2.44772 2 3V6C2 10.4183 5.58172 14 10 14H13C13.5523 14 14 13.5523 14 13V10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input type="phone" id="phone" class="form-input" placeholder="+33 6 12 34 56 78"  formControlName="phone" [attr.aria-invalid]="registerForm.controls.phone.invalid">
+            @if (registerForm.controls.phone.invalid && registerForm.controls.phone.touched) {
+              <p class="error)">Le numéro téléphone est invalide</p>
+            }
+          </div>
+        </div>
+        <!------------------------------ Password ------------------------------->
+        <div class="form-group">
+          <label for="password" class="form-label">Mot de passe</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="8" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M6 8V5C6 3.89543 6.42143 2.83614 7.17157 2.08579C7.92172 1.33543 8.98043 0.914001 10 0.914001C11.0196 0.914001 12.0783 1.33543 12.8284 2.08579C13.5786 2.83614 14 3.89543 14 5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <input (keyup)="checkPwdConstaint()" type="password" id="password" class="form-input" placeholder="••••••••"
+                   formControlName="password" [attr.aria-invalid]="registerForm.controls.password.invalid">
+            @if (registerForm.controls.password.invalid && registerForm.controls.password.touched) {
+              <p class="error">Mot de passe invalid</p>
+            }
+            <button type="button" class="password-toggle" aria-label="Afficher le mot de passe">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 10C1 10 4 4 10 4C16 4 19 10 19 10C19 10 16 16 10 16C4 16 1 10 1 10Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+          </div>
+          <!------------------------ Vérification de renforcement de password ------------------------>
+          <div class="password-strength">
+            <div class="strength-bar">
+              <div class="strength-fill"></div>
+            </div>
+            <p class="strength-text">Utilisez au moins  <strong [ngClass]="hasPwdMinLenght ? 'green-text' : ''">6 caractères</strong> avec au moin
+              une lettre<strong [ngClass]="hasMajuscule ? 'green-text' : ''"> Majuscule</strong>,
+              une lettre <strong [ngClass]="hasMinicule ? 'green-text' : ''"> Minscule</strong>,
+              une <strong [ngClass]="hasNumber ? 'green-text' : ''">chiffre</strong> et une
+              <strong [ngClass]="hasCarecter ? 'green-text' : ''">carectère spaeciale</strong>
+            </p>
+          </div>
+        </div>
+        <!----------------------------confirmPassword --------------------------->
+
+        <div class="form-group">
+          <label for="confirm-password" class="form-label">Confirmer le mot de passe</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="8" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M6 8V5C6 3.89543 6.42143 2.83614 7.17157 2.08579C7.92172 1.33543 8.98043 0.914001 10 0.914001C11.0196 0.914001 12.0783 1.33543 12.8284 2.08579C13.5786 2.83614 14 3.89543 14 5V8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+            <input type="password" id="confirm-password" class="form-input" placeholder="••••••••"
+                   formControlName="confirmPassword" [attr.aria-invalid]="registerForm.controls.confirmPassword.invalid">
+            @if (registerForm.hasError('passwordMismatch')) {
+              <div class="error">Les mots de passe ne correspondent pas.</div>
+            }
+            <button type="button" class="password-toggle" aria-label="Afficher le mot de passe">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 10C1 10 4 4 10 4C16 4 19 10 19 10C19 10 16 16 10 16C4 16 1 10 1 10Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="10" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+        <!----------------------------Adresse --------------------------->
+        <div class="form-group" formArrayName="addresses">
+          <label for="address" class="form-label">Adresse</label>
+          @for (addresse of addresses.controls; track $index) {
+            <div class="input-wrapper">
+              <svg class="input-icon" style="color: black" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                <path d="M304 70.1C313.1 61.9 326.9 61.9 336 70.1L568 278.1C577.9 286.9 578.7 302.1 569.8 312C560.9 321.9 545.8 322.7 535.9 313.8L527.9 306.6L527.9 511.9C527.9 547.2 499.2 575.9 463.9 575.9L175.9 575.9C140.6 575.9 111.9 547.2 111.9 511.9L111.9 306.6L103.9 313.8C94 322.6 78.9 321.8 70 312C61.1 302.2 62 287 71.8 278.1L304 70.1zM320 120.2L160 263.7L160 512C160 520.8 167.2 528 176 528L224 528L224 424C224 384.2 256.2 352 296 352L344 352C383.8 352 416 384.2 416 424L416 528L464 528C472.8 528 480 520.8 480 512L480 263.7L320 120.3zM272 528L368 528L368 424C368 410.7 357.3 400 344 400L296 400C282.7 400 272 410.7 272 424L272 528z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <input type="text" id="adresse-{{$index}}" class="form-input" placeholder="Adresse {{ $index+1}}" [value]="addresse.value"
+                     [formControlName]="$index"  [attr.aria-invalid]="registerForm.controls.addresses.invalid">
+              @if ($index != 0) {
+                <button type="button" (click)="addresses.removeAt($index)">Supprimer</button>
+              }
+
+            </div>
+          }
+          <button type="button" (click)="addresses.push(fb.control(''))">Ajouter une adresse</button>
+
+
+        </div>
+
+        <!----------------------------Submit button --------------------------->
+        <button type="submit" [disabled]="registerForm.invalid" class="btn-submit">
+          <span>Créer mon compte</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 3L13 10L7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </form>
+
+      <div class="form-footer">
+        <p class="footer-text">Vous avez déjà un compte ? <a [routerLink]="['/login']" class="link-primary">Se connecter</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+</body>

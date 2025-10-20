@@ -1,3 +1,6 @@
+/* ========================================
+   MENU BURGER MOBILE
+   ======================================== */
 #mobile-menu
 {
   position: absolute;
@@ -5,15 +8,20 @@
   width: 100vw;
   height: 100vh;
   margin: -100px 0 0 -50px;
-  padding: 80px 50px 50px;
+  padding: 100px 50px 50px 80px;
   box-sizing: border-box;
   overflow-y: auto;
   background: #ededed;
   list-style-type: none;
+
   -webkit-font-smoothing: antialiased;
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  z-index: 1000;
+}
+nav ul {
+  list-style: none;
 }
 
 #mobile-menu li
@@ -35,10 +43,10 @@
   position: absolute;
   right: 40px;
 }
-
-
-
-
+.mobile{
+  display: none;
+}
+.desktop{ display: block;}
 
 /* ========================================
    EN-TÊTE
@@ -147,10 +155,7 @@
   justify-content: center;
 }
 
-.mobile{
-  display: none;
-}
-.desktop{ display: block;}
+
 
 /* ========================================
    RESPONSIVE

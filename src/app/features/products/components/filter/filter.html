@@ -1,7 +1,22 @@
-<div>
-  @for (category of categories; track $index){
-    <button (click)="selectedCategory(category.value)">{{ category.label }}</button>
-  }
-  <button (click)="resetFilter()">Réinitialiser</button>
 
-</div>
+<!-- Sidebar des filtres -->
+<aside class="filters-sidebar" [formGroup]="categoriesForm">
+
+  <div class="filters-header">
+    <h2>Filtres</h2>
+    <button (click)="resetFilter()" class="btn-reset-filters">Réinitialiser</button>
+  </div>
+  <!-- Filtre par catégorie -->
+  <div class="filter-section">
+    <h3 class="filter-title">Catégories</h3>
+    <div  class="filter-options" formArrayName="categoriesArray">
+      @for (category of categoriesArray.controls; track $index){
+      <label class="filter-checkbox" >
+        <input type="checkbox" [formControlName]="$index" >
+        <span class="checkbox-custom"></span>
+        <span class="checkbox-label">{{categories[$index].label}}</span>
+      </label>
+      }
+    </div>
+  </div>
+</aside>
