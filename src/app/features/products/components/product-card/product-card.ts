@@ -1,13 +1,5 @@
-import {afterNextRender, Component, computed, effect, inject, Injector, input, output, ViewChild} from '@angular/core';
-import {
-  MatCard,
-  MatCardActions,
-  MatCardContent,
-  MatCardHeader,
-  MatCardImage,
-  MatCardSubtitle
-} from '@angular/material/card';
-import {MatButton} from '@angular/material/button';
+import {Component, computed, effect, inject, input, output} from '@angular/core';
+import {MatCard} from '@angular/material/card';
 import {RouterLink} from '@angular/router';
 import {Product} from '../../../../models/product-model';
 import {CurrencyPipe, NgClass} from '@angular/common';
@@ -22,12 +14,6 @@ import {Review} from '../../../../models/Review-model';
   selector: 'app-product-card',
   imports: [
     MatCard,
-    MatCardActions,
-    MatCardContent,
-    MatCardHeader,
-    MatCardSubtitle,
-    MatButton,
-    MatCardImage,
     CurrencyPipe,
     NgClass,
     RouterLink,

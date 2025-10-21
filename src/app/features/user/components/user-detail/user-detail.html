@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="header">
+    <h2>Detail utilisateurs</h2>
+    <!-- état de chargement -->
+    @if (isLoading()){
+      <div class="loading">
+        <p>Chargement des detail user...</p>
+      </div>
+    }
+  </div>
+</div>
+
+<div class="container">
+  <div class="header">
+    <h3>Delet post</h3>
+    <!-- delet post -->
+    @for (post of posts(); track post.id) {
+      <button (click)="deletePost(post.id)">Supprimer un post</button>
+    }
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="header">
+    <h2>Le detail de l'utilisateur et post</h2>
+    <!-- detail post et user-->
+    @if (user() !== null){
+      <button (click)="loadUserDetails(user()!.id)">voir le detail user</button>
+    }
+
+  </div>
+</div>
