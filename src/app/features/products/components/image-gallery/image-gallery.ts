@@ -1,11 +1,14 @@
 import {Component, inject, signal} from '@angular/core';
-import {HttpClient, provideHttpClient} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Photo} from '../../../../models/galary-model';
 import {firstValueFrom} from 'rxjs';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-image-gallery',
-  imports: [],
+  imports: [
+    ReactiveFormsModule
+  ],
   templateUrl: './image-gallery.html',
   styleUrl: './image-gallery.scss'
 })
@@ -25,7 +28,7 @@ export class ImageGallery {
       this.isLoading.set(true);
       this.error.set(null);
       const photos = await firstValueFrom(
-        this.http.get<Photo[]>('https://jsonplaceholder.typicode.com/photos?_limit=20')
+        this.http.get<Photo[]>('https://picsum.photos/v2/list?page=1&limit=20')
       );
       this.photos.set(photos);
     }catch (error) {

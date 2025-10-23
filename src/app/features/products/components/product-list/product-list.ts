@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ProductCard} from '../product-card/product-card';
 import {Review} from '../../../../models/Review-model';
 import {Filter} from '../filter/filter';
+import {ProductApiService} from '../../services/product-api.service';
 
 @Component({
   selector: 'app-product-list',
@@ -15,16 +16,44 @@ import {Filter} from '../filter/filter';
   styleUrl: './product-list.scss'
 })
 export class ProductList implements OnInit {
+
+  private productApi = inject(ProductApiService);
+
+  products = signal<Product[]>([]);
+  isDeleting = signal<number | null>(null);
+
   private route = inject(ActivatedRoute);
-  products: Product[] = this.route.snapshot.data['myProducts'];
+ // products: Product[] = this.route.snapshot.data['myProducts'];
   categorySignal = signal<string[]>([]);
 
   cartItems: Product[] = [];
   faviriteIds: number[] = [];
   historiqueAllReviews: Review[] = [];
 
-  ngOnInit(): void {
-    console.log('ngOnInit');
+  async ngOnInit() {
+   await this.loadProducts();
+  }
+  async loadProducts(): Promise<void> {
+    try {
+      const products :Product[] = await this.productApi.getProducts();
+      this.products.set(products);
+    }catch(err) {
+      console.error(err);
+
+    }
+
+  }
+
+  async deleteProduct(productId: number): Promise<void> {
+    this.isDeleting.set(productId);
+    try {
+      await this.productApi.deleteProduct(productId);
+      this.products.update(products =>products.filter(p => p.id !== productId));
+    } catch(err) {
+
+    } finally {
+      this.isDeleting.set(null);
+    }
   }
 
   // methode appelée par un output envoyé depuis l'enfant
@@ -66,11 +95,11 @@ export class ProductList implements OnInit {
     return this.faviriteIds.length;
   }
   nbInStock (): number {
-    return this.products.filter((p) => p.inStock).length;
+    return this.products().filter((p) => p.inStock).length;
   }
   onAddedRate(review: Review): void {
     const productId = review.productId;
-    let produit = this.products.find((product: Product) => product.id === productId);
+    let produit = this.products().find((product: Product) => product.id === productId);
     if(produit) {
       this.historiqueAllReviews.push(review);
       let historiqueReviewProduit = this.historiqueAllReviews.filter(r => r.productId === productId);
@@ -88,9 +117,9 @@ export class ProductList implements OnInit {
     const categories : string[] = this.categorySignal();
     console.log(`category in parent -> ${categories}`);
     if(categories.length === 0) {
-      return this.products;
+      return this.products();
     }else{
-      return this.products.filter(p => categories.includes(p.category));
+      return this.products().filter(p => categories.includes(p.category));
     }
   });
 

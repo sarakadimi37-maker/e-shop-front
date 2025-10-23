@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {LoginFormModele} from '../../../models/login-form-modele';
 import {Router, RouterLink} from '@angular/router';
+import {Auth} from '../../../auth';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +16,8 @@ import {Router, RouterLink} from '@angular/router';
 export class Login {
 
   private router: Router = inject(Router);
-
-fb = inject(NonNullableFormBuilder);
+  private auth = inject(Auth);
+  fb = inject(NonNullableFormBuilder);
 
   loginForm: FormGroup<LoginFormModele> = this.fb.group({
     email: this.fb.control('', [Validators.email, Validators.required]),
@@ -24,7 +25,7 @@ fb = inject(NonNullableFormBuilder);
   });
 
   submit() {
-    localStorage.setItem('connected', 'true');
+    this.auth.authenticate(this.loginForm.controls['email'].value);
     this.router.navigate(['/']);
   }
 }

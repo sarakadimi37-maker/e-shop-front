@@ -4,4 +4,5 @@ export type Photo = {
   url: string;
   thumbnailUrl: string;
   liked: boolean;
+  download_url: string
 }

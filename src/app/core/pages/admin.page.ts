@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
+import {UserProfile} from '../../features/components/user/user-profile/user-profile';
 
 @Component({
   selector: 'app-admin.page',
-  imports: [],
+  imports: [
+    UserProfile
+  ],
   template: `
-    <p>
-      admin.page works!
-    </p>
+    <app-user-profile></app-user-profile>
   `,
   styles: ``
 })

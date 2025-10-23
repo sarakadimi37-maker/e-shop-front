@@ -23,13 +23,13 @@
       <button (click)="refreshImages()">Réessayer</button>
     </div>
   }
-
+<div class="">
   @if (!isLoading() && !error() && photos().length > 0){
-    <div class="user-grid">
+    <div class="">
       <p>nb like {{counter}}</p>
       @for (photo of photos(); track photo.id) {
-        <div class="user-card">
-          <img [src]="photo.thumbnailUrl">
+        <div>
+          <img [src]="photo.download_url" alt="author" class="photo">
           <h3>{{photo.title}}</h3>
           @if (photo.liked){
             <span>liked</span>
@@ -42,3 +42,13 @@
     </div>
   }
 </div>
+</div>
+
+
+
+
+
+
+
+
+

@@ -1,12 +1,14 @@
 @if (isConnected()){
   <app-header></app-header>
 }
-
+<!--
 @if (loading){
   <div class="loader-overlay">
     <div class="spinner"></div>
   </div>
 }
-
+-->
+<app-global-spinner></app-global-spinner>
+<app-toast-error></app-toast-error>
 <router-outlet></router-outlet>
 <app-footer></app-footer>

@@ -6,12 +6,15 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { routes } from './router/app.routes';
-import {HttpClient, provideHttpClient} from '@angular/common/http';
+import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/http';
+import {loadingInterceptor} from './core/interceptors/loading-interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([loadingInterceptor])
+    ),
   ]
 };
