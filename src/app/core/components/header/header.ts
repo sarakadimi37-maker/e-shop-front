@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import {NgClass} from '@angular/common';
+import {CartStore} from '../../../features/cart/services/cart-store';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ import {NgClass} from '@angular/common';
   styleUrl: './header.scss'
 })
 export class Header {
+  cartStore = inject(CartStore);
 
   isOpen: boolean = false;
   toggleMenu() {

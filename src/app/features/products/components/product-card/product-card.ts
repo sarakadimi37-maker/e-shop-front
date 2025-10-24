@@ -8,6 +8,7 @@ import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {RateFormModel,} from '../../../../models/Rate-form-model';
 import {Review} from '../../../../models/Review-model';
+import {CartStore} from '../../../cart/services/cart-store';
 
 
 @Component({
@@ -28,13 +29,15 @@ import {Review} from '../../../../models/Review-model';
   styleUrl: './product-card.scss'
 })
  export class ProductCard {
+
   product = input.required<Product>(); //---- input
-  productAddedTCard = output<Product>();
   productAddedToFavorites = output<Product>();
   productRemoveFromFavorites = output<Product>();
   isFavorite = input<boolean>(false);
   showRatingForm: boolean = false;
   rateAdded = output<Review>();
+
+  cartStoreServive = inject(CartStore);
 
   displayPrice = computed(()=>{
     const p = this.product();
@@ -52,17 +55,6 @@ import {Review} from '../../../../models/Review-model';
     rate: this.fb.control('', Validators.required),
     comment: this.fb.control('')
   })
-  /*
-  On a crée 3 output() productAddedToCart, productRemovedFromFavorites,productAddedToFavorites,
-  qui émettent chacun un produit.
-   Ils ont chacun une fonction, un rôle. Ce sont des déclencheurs !
-   */
-
-  onAddToCart(): void {
-    console.log(`${this.product().name} ajouter au panier!`);
-    // émettre l'évenement vers le parent
-    this.productAddedTCard.emit(this.product());
-  }
 
   onToogleFavorite(): void {
     if (this.isFavorite()) {

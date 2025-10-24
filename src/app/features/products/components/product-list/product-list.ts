@@ -26,12 +26,12 @@ export class ProductList implements OnInit {
  // products: Product[] = this.route.snapshot.data['myProducts'];
   categorySignal = signal<string[]>([]);
 
-  cartItems: Product[] = [];
   faviriteIds: number[] = [];
   historiqueAllReviews: Review[] = [];
 
   async ngOnInit() {
    await this.loadProducts();
+
   }
   async loadProducts(): Promise<void> {
     try {
@@ -56,12 +56,7 @@ export class ProductList implements OnInit {
     }
   }
 
-  // methode appelée par un output envoyé depuis l'enfant
-  onProductAddedToCart(product: Product): void {
-    this.cartItems.push(product);
-    console.log(`${product.name} ajouter au panier`);
-    console.log(`Panier : ${this.cartItems.length} articles`);
-  }
+
 
   /**
     👇 Méthode appelée par un output envoyé depuis l'enfant
@@ -87,9 +82,7 @@ export class ProductList implements OnInit {
     return this.faviriteIds.includes(productId);
   }
 
-  getCartCount(): number {
-    return this.cartItems.length;
-  }
+
 
   getFavoritesCount(): number {
     return this.faviriteIds.length;

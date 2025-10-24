@@ -1,0 +1,85 @@
+<main class="main-content">
+  <div class="container">
+    <div class="page-title">
+      <div>
+        <h1>Mon panier</h1>
+        <p class="subtitle">{{cartStoreService.productsInCart().length}} articles</p>
+      </div>
+      <button class="btn-remove" style="font-size: 1.1rem; color: red;" (click)="cartStoreService.clearCart()">Supprimer panier</button>
+    </div>
+
+    <div class="cart-layout">
+      <!-- Colonne des articles -->
+      <div class="cart-items">
+        <!-- Liste des artickes dans panier -->
+        @for (product of cartStoreService.productsInCart(); track product.id) {
+          <article class="cart-item">
+            <div class="item-image">
+              <img [src]="product.imageUrl" alt="product.name">
+            </div>
+            <div class="item-details">
+              <div class="item-header">
+                <h3 class="item-name">{{product.name}}</h3>
+                <button class="btn-remove" (click)="cartStoreService.removeFromCart(product)" aria-label="Retirer cet article">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                </button>
+              </div>
+              <p class="item-description">{{product.description}}</p>
+              <div class="item-stock" [ngClass]="product.inStock ? 'in-stock' : 'low-stock'">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="8" cy="8" r="8" fill="currentColor"/>
+                  <path d="M5 8L7 10L11 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>En stock</span>
+              </div>
+            </div>
+            <div class="item-actions">
+              <div class="quantity-selector">
+                <label for="qty-1" class="quantity-label">Quantité</label>
+                <div class="quantity-controls">
+                  <button class="qty-btn" aria-label="Diminuer la quantité">−</button>
+                  <input type="number" id="qty-1" class="qty-input" value="1" min="1" max="10" aria-label="Quantité">
+                  <button class="qty-btn" aria-label="Augmenter la quantité">+</button>
+                </div>
+              </div>
+              <div class="item-price">
+                <span class="price-label">Prix</span>
+                <span class="price-value">{{product.price | currency :'EUR'}}</span>
+              </div>
+            </div>
+          </article>
+        }
+
+      </div>
+
+      <!-- Colonne récapitulatif -->
+      <aside class="cart-summary">
+        <div class="summary-card">
+          <h2 class="summary-title">Récapitulatif</h2>
+
+          <div class="summary-details">
+            <div class="summary-row">
+              <span class="summary-label">Sous-total ({{cartStoreService.productsInCart().length}} articles)</span>
+              <span class="summary-value">{{cartStoreService.totalPrice() | currency : 'EUR'}}</span>
+            </div>
+
+            <div class="summary-divider"></div>
+            <div class="summary-row summary-total">
+              <span class="summary-label">Total à payer </span>
+              <span class="summary-value">{{cartStoreService.totalPrice() | currency : 'EUR'}}</span>
+            </div>
+          </div>
+
+          <button class="btn-checkout">
+            <span>Procéder au paiement</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>

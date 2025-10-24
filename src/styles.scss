@@ -80,6 +80,14 @@ body {
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+button:disabled,
+button[disabled]{
+  border: 1px solid #999999!important;
+  background-color: #cccccc!important;
+  color: #666666!important;
+}
+
+
 /* register & login */
 
 .error {

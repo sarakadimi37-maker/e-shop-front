@@ -61,17 +61,17 @@
                 d="M12 21L10.55 19.7C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 19.7L12 21Z"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span class="badge">3</span>
+            <span class="badge">5</span>
           </a>
           <!------------------------------- Voir le panier ----------------------------------->
-          <a href="panier-ecommerce.html" class="icon-btn" aria-label="Panier">
+          <a [routerLink]="['/cart']" class="icon-btn" aria-label="Panier">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 6L10 6L13 19L25 19L28 10L11 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round"/>
               <circle cx="13" cy="25" r="2" fill="currentColor"/>
               <circle cx="23" cy="25" r="2" fill="currentColor"/>
             </svg>
-            <span class="badge">3</span>
+            <span class="badge">{{cartStore.productsInCart().length}}</span>
           </a>
         </div>
       </div>

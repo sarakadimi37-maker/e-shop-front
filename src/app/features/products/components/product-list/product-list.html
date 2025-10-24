@@ -22,7 +22,6 @@
               <app-product-card
                 [product]="product"
                 [isFavorite]="isInFavorites(product.id)"
-                (productAddedTCard)="onProductAddedToCart($event)"
                 (productAddedToFavorites)="onProductAddedToFavorite($event)"
                 (productRemoveFromFavorites)="onProductRemoveFromFavorite($event)"
                 (rateAdded)="onAddedRate($event)"
