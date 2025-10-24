@@ -121,29 +121,6 @@
   margin: 0;
 }
 
-.item-options {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
-  font-size: 0.9375rem;
-}
-
-.option-label {
-  color: var(--color-text-light);
-  font-weight: 500;
-}
-
-.option-select {
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-size: 0.9375rem;
-  cursor: pointer;
-  transition: border-color var(--transition-fast);
-}
-
 .option-select:hover {
   border-color: var(--color-primary);
 }
@@ -276,8 +253,7 @@
   gap: var(--spacing-lg);
 }
 
-.summary-card,
-.suggestions-card {
+.summary-card{
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -313,23 +289,6 @@
   font-weight: 600;
   color: var(--color-text);
   font-size: 1rem;
-}
-
-.summary-info {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--spacing-xs);
-  padding: var(--spacing-sm);
-  background-color: #eff6ff;
-  border-radius: var(--radius-sm);
-  font-size: 0.875rem;
-  color: var(--color-primary-dark);
-}
-
-.summary-info svg {
-  flex-shrink: 0;
-  margin-top: 2px;
-  color: var(--color-primary);
 }
 
 .summary-divider {

@@ -56,8 +56,6 @@ export class ProductList implements OnInit {
     }
   }
 
-
-
   /**
     👇 Méthode appelée par un output envoyé depuis l'enfant
    * methode qui traite les produis à mettre en favoris reçue depuis l'enfant
