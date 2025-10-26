@@ -5,29 +5,29 @@
         <h1>Mon panier</h1>
         <p class="subtitle">{{cartStoreService.productsInCart().length}} articles</p>
       </div>
-      <button class="btn-remove" style="font-size: 1.1rem; color: red;" (click)="cartStoreService.clearCart()">Supprimer panier</button>
+      <button class="btn-remove" style="font-size: 1.1rem; color: red;" (click)="cartFacade.clearProductsInCart()">Supprimer panier</button>
     </div>
 
     <div class="cart-layout">
       <!-- Colonne des articles -->
       <div class="cart-items">
         <!-- Liste des artickes dans panier -->
-        @for (product of cartStoreService.productsInCart(); track product.id) {
+        @for (item of cartStoreService.productsInCart(); track item.product.id) {
           <article class="cart-item">
             <div class="item-image">
-              <img [src]="product.imageUrl" alt="product.name">
+              <img [src]="item.product.imageUrl" alt="product.name">
             </div>
             <div class="item-details">
               <div class="item-header">
-                <h3 class="item-name">{{product.name}}</h3>
-                <button class="btn-remove" (click)="cartStoreService.removeFromCart(product)" aria-label="Retirer cet article">
+                <h3 class="item-name">{{item.product.name}}</h3>
+                <button class="btn-remove" (click)="cartFacade.remove(item.product.id)" aria-label="Retirer cet article">
                   <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15 5L5 15M5 5L15 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                 </button>
               </div>
-              <p class="item-description">{{product.description}}</p>
-              <div class="item-stock" [ngClass]="product.inStock ? 'in-stock' : 'low-stock'">
+              <p class="item-description">{{item.product.description}}</p>
+              <div class="item-stock" [ngClass]="item.product.inStock ? 'in-stock' : 'low-stock'">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <circle cx="8" cy="8" r="8" fill="currentColor"/>
                   <path d="M5 8L7 10L11 6" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -35,18 +35,19 @@
                 <span>En stock</span>
               </div>
             </div>
+            <!--------------------- Quantity----------------------->
             <div class="item-actions">
               <div class="quantity-selector">
                 <label for="qty-1" class="quantity-label">Quantité</label>
                 <div class="quantity-controls">
-                  <button class="qty-btn" aria-label="Diminuer la quantité">−</button>
-                  <input type="number" id="qty-1" class="qty-input" value="1" min="1" max="10" aria-label="Quantité">
-                  <button class="qty-btn" aria-label="Augmenter la quantité">+</button>
+                  <button class="qty-btn" aria-label="Diminuer la quantité" (click)="cartFacade.reduceQt(item.product, 1)">−</button>
+                  <input type="number" class="qty-input" aria-label="Quantité" [value]="item.quantity">
+                  <button class="qty-btn" aria-label="Augmenter la quantité" (click)="cartFacade.add(item.product, 1)">+</button>
                 </div>
               </div>
               <div class="item-price">
                 <span class="price-label">Prix</span>
-                <span class="price-value">{{product.price | currency :'EUR'}}</span>
+                <span class="price-value">{{item.product.price * item.quantity | currency :'EUR'}}</span>
               </div>
             </div>
           </article>
@@ -60,8 +61,17 @@
           <h2 class="summary-title">Récapitulatif</h2>
 
           <div class="summary-details">
+            <div>
+              @for (item of cartStoreService.productsInCart(); track item.product.id) {
+                <div style="display: flex; justify-content: space-between">
+                  <span class="summary-label">Article #{{item.product.id}}</span>
+                  <span class="summary-label">{{item.quantity}} x {{item.product.price | currency : 'EUR'}}</span>
+                </div>
+              }
+            </div>
             <div class="summary-row">
-              <span class="summary-label">Sous-total ({{cartStoreService.productsInCart().length}} articles)</span>
+
+              <span class="summary-label">Sous-total ({{subTotal()}} articles)</span>
               <span class="summary-value">{{cartStoreService.totalPrice() | currency : 'EUR'}}</span>
             </div>
 

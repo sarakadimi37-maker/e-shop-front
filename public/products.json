@@ -7,6 +7,7 @@
     "imageUrl": "https://placehold.co/300x200/8B0000/ffffff?text=Witcher",
     "category": "gaming",
     "inStock": true,
+    "quantity": 3,
     "rating": 4.9
   },
   {
@@ -17,6 +18,7 @@
     "imageUrl": "https://placehold.co/300x200/FF6347/ffffff?text=Nike",
     "category": "clothing",
     "inStock": true,
+    "quantity": 8,
     "rating": 4.5
   },
   {
@@ -27,6 +29,7 @@
     "imageUrl": "https://placehold.co/300x200/4682B4/ffffff?text=Coffee",
     "category": "home",
     "inStock": false,
+    "quantity": 0,
     "rating": 4.2
   },
   {
@@ -37,6 +40,7 @@
     "imageUrl": "https://placehold.co/300x200/2F4F4F/ffffff?text=Canon",
     "category": "electronics",
     "inStock": true,
+    "quantity": 3,
     "rating": 4.7
   },
   {
@@ -47,6 +51,29 @@
     "imageUrl": "https://placehold.co/300x200/9370DB/ffffff?text=Yoga",
     "category": "sports",
     "inStock": false,
+    "quantity": 0,
+    "rating": 4.3
+  },
+  {
+    "id": null,
+    "name": "produit test sans id",
+    "description": "bla labjkgbjk",
+    "price": 45.5,
+    "imageUrl": "https://placehold.co/300x200/9370DB/ffffff?text=Yoga",
+    "category": "sports",
+    "inStock": true,
+    "quantity": 6,
+    "rating": 4.3
+  },
+  {
+    "id": 7,
+    "name": "produit test prix",
+    "description": "bla labjkgbjk",
+    "price": 500000,
+    "imageUrl": "https://placehold.co/300x200/9370DB/ffffff?text=Yoga",
+    "category": "sports",
+    "inStock": true,
+    "quantity": 5,
     "rating": 4.3
   }
 ]

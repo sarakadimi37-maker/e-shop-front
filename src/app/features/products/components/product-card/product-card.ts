@@ -1,4 +1,4 @@
-import {Component, computed, effect, inject, input, output} from '@angular/core';
+import {Component, computed, effect, inject, input, output, signal} from '@angular/core';
 import {MatCard} from '@angular/material/card';
 import {RouterLink} from '@angular/router';
 import {Product} from '../../../../models/product-model';
@@ -8,7 +8,8 @@ import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {RateFormModel,} from '../../../../models/Rate-form-model';
 import {Review} from '../../../../models/Review-model';
-import {CartStore} from '../../../cart/services/cart-store';
+import {CartStore} from '../../../cart/services/cart.store';
+import {CartFacade} from '../../../cart/services/cart.facade';
 
 
 @Component({
@@ -36,8 +37,9 @@ import {CartStore} from '../../../cart/services/cart-store';
   isFavorite = input<boolean>(false);
   showRatingForm: boolean = false;
   rateAdded = output<Review>();
+  qtOfBuy = signal<number| undefined>(undefined);
 
-  cartStoreServive = inject(CartStore);
+  cartFacade = inject(CartFacade);
 
   displayPrice = computed(()=>{
     const p = this.product();
@@ -77,5 +79,26 @@ import {CartStore} from '../../../cart/services/cart-store';
 
   onToogleShowRatingForm() {
     this.showRatingForm = !this.showRatingForm;
+  }
+
+  incQt() {
+    this.qtOfBuy.update((currentQt) => {
+      if(currentQt === undefined){
+        return 1;
+      } else {
+        return currentQt+1
+      }
+
+    });
+  }
+
+  decQt() {
+    this.qtOfBuy.update((currentQt) => {
+      if(currentQt === undefined){
+        return 0;
+      }else{
+        return currentQt-1
+      }
+    });
   }
 }

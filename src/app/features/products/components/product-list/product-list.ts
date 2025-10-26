@@ -1,10 +1,10 @@
 import {Component, computed, inject, OnInit, signal} from '@angular/core';
 import {Product} from '../../../../models/product-model';
-import {ActivatedRoute} from '@angular/router';
 import {ProductCard} from '../product-card/product-card';
 import {Review} from '../../../../models/Review-model';
 import {Filter} from '../filter/filter';
 import {ProductApiService} from '../../services/product-api.service';
+import {CartStore} from '../../../cart/services/cart.store';
 
 @Component({
   selector: 'app-product-list',
@@ -18,12 +18,10 @@ import {ProductApiService} from '../../services/product-api.service';
 export class ProductList implements OnInit {
 
   private productApi = inject(ProductApiService);
+  private cartStore = inject(CartStore);
 
   products = signal<Product[]>([]);
   isDeleting = signal<number | null>(null);
-
-  private route = inject(ActivatedRoute);
- // products: Product[] = this.route.snapshot.data['myProducts'];
   categorySignal = signal<string[]>([]);
 
   faviriteIds: number[] = [];
@@ -36,6 +34,15 @@ export class ProductList implements OnInit {
   async loadProducts(): Promise<void> {
     try {
       const products :Product[] = await this.productApi.getProducts();
+      const productsStore = this.cartStore.productsInCart();
+      products.forEach(product => {
+        // trouver si le produit exist deja dans le panier
+       const storeItem = productsStore
+         .find(element => element.product.id === product.id);
+       if(storeItem) {
+         product.quantity -= storeItem.quantity;
+       }
+      })
       this.products.set(products);
     }catch(err) {
       console.error(err);

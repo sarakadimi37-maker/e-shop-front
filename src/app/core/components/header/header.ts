@@ -2,7 +2,7 @@ import {Component, inject} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import {NgClass} from '@angular/common';
-import {CartStore} from '../../../features/cart/services/cart-store';
+import {CartStore} from '../../../features/cart/services/cart.store';
 
 @Component({
   selector: 'app-header',
