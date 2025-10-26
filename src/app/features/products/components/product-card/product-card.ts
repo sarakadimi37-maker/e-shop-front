@@ -2,7 +2,7 @@ import {Component, computed, effect, inject, input, output, signal} from '@angul
 import {MatCard} from '@angular/material/card';
 import {RouterLink} from '@angular/router';
 import {Product} from '../../../../models/product-model';
-import {CurrencyPipe, NgClass} from '@angular/common';
+import {CurrencyPipe, NgClass, NgOptimizedImage} from '@angular/common';
 import {FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
@@ -24,6 +24,7 @@ import {CartFacade} from '../../../cart/services/cart.facade';
     MatLabel,
     MatFormField,
     CdkTextareaAutosize,
+    NgOptimizedImage,
 
   ],
   templateUrl: './product-card.html',

@@ -1,4 +1,4 @@
-import {Component, computed, inject, OnInit, signal} from '@angular/core';
+import {ChangeDetectionStrategy, Component, computed, inject, OnInit, signal} from '@angular/core';
 import {Product} from '../../../../models/product-model';
 import {ProductCard} from '../product-card/product-card';
 import {Review} from '../../../../models/Review-model';
@@ -10,8 +10,9 @@ import {CartStore} from '../../../cart/services/cart.store';
   selector: 'app-product-list',
   imports: [
     ProductCard,
-    Filter
+    Filter,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss'
 })
