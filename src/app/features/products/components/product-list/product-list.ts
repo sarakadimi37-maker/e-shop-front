@@ -88,8 +88,6 @@ export class ProductList implements OnInit {
     return this.faviriteIds.includes(productId);
   }
 
-
-
   getFavoritesCount(): number {
     return this.faviriteIds.length;
   }

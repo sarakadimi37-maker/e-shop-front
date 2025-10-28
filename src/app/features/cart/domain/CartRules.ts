@@ -41,6 +41,8 @@ export class CartRules {
      if(qtOfRemove > productInCart.quantity ){
        throw new Error('impossible de mettre une quantité nulle ou négative');
      }
+   }else{
+     throw new Error('ce produit ne existe pas');
    }
   }
 

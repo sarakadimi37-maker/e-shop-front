@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {UserProfile} from '../../features/components/user/user-profile/user-profile';
+import {UserProfile} from '../../features/user/components/user-profile/user-profile';
 
 @Component({
   selector: 'app-admin.page',
