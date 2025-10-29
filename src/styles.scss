@@ -203,6 +203,11 @@ h2 {
 /* ========================================
    CONTENEUR PRINCIPAL
    ======================================== */
+.container {
+  max-width: 1350px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
 
 .auth-container {
   display: grid;
@@ -824,6 +829,8 @@ a:focus-visible {
   outline: none;
   background-color: var(--color-bg-gray);
 }
+
+
 
 
 

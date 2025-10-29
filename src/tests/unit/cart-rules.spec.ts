@@ -62,15 +62,15 @@ describe('CartRules', () => {
       CartRules.validateAdd(invalid, 50, 2);
     }).toThrowError('le prix du produit doit être ≥ 0');
   });
-/*
+
   it('should not exceed max cart total', () => {
     const p = {...product, price:5000}
-    const totatPrice = (product.price * 2) + 60000;
+    const totatPrice = 1500;
     expect(()=>{
-      CartRules.validateAdd(p, totatPrice, 2);
-    }).toThrowError('le montant total du panier ne doit jamais dépasser une limite définie');
+      CartRules.validateAdd(p, totatPrice, 1);
+    }).toThrowError('le montant total du panier ne doit jamais dépasser une limite définie (ex : 5000€)');
   });
-*/
+
 
   /** Remove
    * - should throw when removing non-existing product
@@ -82,7 +82,7 @@ describe('CartRules', () => {
     product: { ...product },
       quantity: 2
     }];
-    expect(()=>{
+    expect(()=> {
       CartRules.validateRemove(99, 1, storeItems);
     }).toThrowError('ce produit ne existe pas');
   });

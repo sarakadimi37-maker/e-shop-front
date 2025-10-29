@@ -76,6 +76,6 @@ export class CartFacade {
       await this.cartApi.deleteCart(item.product.id);
     })
     this.cartStore.clearCart();
-    this.notificationService.showSuccess("Le panier a été vidé avec succès.");
+    this.notificationService.showSuccess("Le panier a été vider avec succès.");
   }
 }
