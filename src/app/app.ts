@@ -37,7 +37,10 @@ export class App {
 
   protected readonly localStorage = localStorage;
 
-  isConnected(): boolean {
-    return localStorage.getItem("connected") !== null;
-  }
+  /**
+   *   isConnected(): boolean {
+   *     return localStorage.getItem("connected") !== null;
+   *   }
+   */
+
 }

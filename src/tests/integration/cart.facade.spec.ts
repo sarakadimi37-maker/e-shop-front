@@ -129,7 +129,12 @@ it("should remove product in cart, notify message success", async () => {
     const message = notification.message();
     expect("Le panier a été vider avec succès.").toEqual(message!);
   });
-
-
-
+/*
+  // cas de test pour déminuer le taux de produit dans panier
+  it("should reduce products in cart, notify message success", async () => {
+    await  facade.reduceQt(product, 1);
+    const message = notification.message();
+    expect("Une erreur est survenue.").toEqual(message!);
+  });
+*/
 });

@@ -1,9 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Counter} from '../../products/components/counter/counter';
 import {Temperature} from '../../products/components/temperature/temperature';
 import {LikeCounter} from '../../products/components/like-counter/like-counter';
 import {UserList} from '../../user/components/user-list/user-list';
-import {ImageGallery} from '../../products/components/image-gallery/image-gallery';
 import {UserDetail} from '../../user/components/user-detail/user-detail';
 
 @Component({

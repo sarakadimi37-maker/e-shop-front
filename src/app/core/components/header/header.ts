@@ -1,7 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
-import { MatIconModule } from '@angular/material/icon';
-import {NgClass} from '@angular/common';
+import {MatIconModule} from '@angular/material/icon';
 import {CartStore} from '../../../features/cart/services/cart.store';
 
 @Component({
@@ -9,7 +8,6 @@ import {CartStore} from '../../../features/cart/services/cart.store';
   imports: [
     RouterLink,
     MatIconModule,
-    NgClass,
     RouterLinkActive
   ],
   templateUrl: './header.html',

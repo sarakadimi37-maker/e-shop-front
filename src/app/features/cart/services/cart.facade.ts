@@ -78,4 +78,11 @@ export class CartFacade {
     this.cartStore.clearCart();
     this.notificationService.showSuccess("Le panier a été vider avec succès.");
   }
+
+  checkout() {
+    this.notificationService.showSuccess('Merci de votre achat');
+    this.cartStore.clearCart();
+  }
+
+
 }
