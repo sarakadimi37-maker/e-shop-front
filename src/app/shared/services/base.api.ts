@@ -11,7 +11,7 @@ export abstract class BaseApi {
 
   protected http = inject(HttpClient);
   protected errorService = inject(ErrorService);
-  protected readonly BASE_URL = 'http://localhost:4200';
+  protected readonly BASE_URL = '';
 
   protected getHeaders(): HttpHeaders {
     return new HttpHeaders({
