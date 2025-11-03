@@ -103,7 +103,15 @@ describe('CartRules', () => {
    *     - should throw if updating non-existing product
    *     - should update quantity when valid
    */
-
+  it('should remove product when existing', () => {
+    const storeItems : CartItemModel[]= [{
+      product: { ...product },
+      quantity: 2
+    }];
+    expect(()=>{
+      CartRules.validateRemove(1, 1, storeItems);
+    }).toBeFalse();
+  });
 
 
 });
