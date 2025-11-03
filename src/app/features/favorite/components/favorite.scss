@@ -1,0 +1,318 @@
+
+/* ========================================
+   CONTENU PRINCIPAL
+   ======================================== */
+h1{
+  display: flex;
+}
+.main-content {
+  padding: var(--spacing-xl) 0;
+  min-height: calc(100vh - 200px);
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-xl);
+  gap: var(--spacing-lg);
+}
+
+.page-title-section {
+  flex: 1;
+}
+
+.subtitle {
+  color: var(--color-text-light);
+  font-size: 1rem;
+  margin-top: var(--spacing-xs);
+}
+
+.page-actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.btn-secondary,
+.btn-danger-outline {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-bg-hover);
+  border-color: var(--color-text-light);
+}
+
+.btn-danger-outline {
+  color: var(--color-danger);
+  border-color: var(--color-danger);
+}
+
+.btn-danger-outline:hover {
+  background-color: #fef2f2;
+}
+
+/* ========================================
+LISTE DES FAVORIS
+======================================== */
+
+.favorites-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.favorite-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--spacing-lg);
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  transition: all var(--transition-normal);
+}
+
+.favorite-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.item-image-wrapper {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  background-color: var(--color-bg-gray);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-badge {
+  position: absolute;
+  top: var(--spacing-sm);
+  left: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+
+.badge-new {
+  background-color: var(--color-new);
+  color: white;
+}
+
+.badge-sale {
+  background-color: var(--color-sale);
+  color: white;
+}
+
+.product-category {
+  position: absolute;
+  bottom: var(--spacing-sm);
+  left: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.item-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  flex: 1;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.item-title-section {
+  flex: 1;
+}
+
+.item-name {
+  margin-bottom: var(--spacing-xs);
+}
+
+.item-description {
+  color: var(--color-text-light);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.btn-remove-favorite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  color: var(--color-danger);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.btn-remove-favorite:hover {
+  background-color: #fef2f2;
+  transform: scale(1.1);
+}
+
+.item-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+}
+
+.item-rating {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.stars-display {
+  display: flex;
+  align-items: center;
+}
+
+.stars {
+  font-size: 1rem;
+  letter-spacing: 2px;
+}
+
+.stars.filled {
+  color: var(--color-warning);
+}
+
+.stars:not(.filled) {
+  color: var(--color-border);
+}
+
+.rating-count {
+  font-size: 0.875rem;
+  color: var(--color-text-lighter);
+}
+
+.item-stock {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+
+
+.item-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.item-price {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+}
+
+.price-old {
+  font-size: 0.9375rem;
+  color: var(--color-text-lighter);
+  text-decoration: line-through;
+}
+
+.price-current {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* ========================================
+   ACTIONS GROUPÉES
+   ======================================== */
+
+.bulk-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-xl);
+  background-color: var(--color-bg);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.btn-primary-large {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl);
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary-large:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-primary-large:active {
+  transform: translateY(0);
+}
+
+.bulk-total {
+  font-size: 1.125rem;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.bulk-total strong {
+  color: var(--color-text);
+  font-size: 1.5rem;
+}
+

@@ -3,6 +3,7 @@ import {CartStore} from '../../services/cart.store';
 import {CurrencyPipe, NgClass} from '@angular/common';
 import {CartFacade} from '../../services/cart.facade';
 import {NotificationService} from '../../../../shared/services/notification.service';
+import {FavoriteStore} from '../../../favorite/services/favorite.store';
 
 @Component({
   selector: 'app-cart-summary',

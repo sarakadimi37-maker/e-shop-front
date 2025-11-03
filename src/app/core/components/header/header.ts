@@ -2,6 +2,7 @@ import {Component, inject} from '@angular/core';
 import {RouterLink, RouterLinkActive} from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
 import {CartStore} from '../../../features/cart/services/cart.store';
+import {FavoriteStore} from '../../../features/favorite/services/favorite.store';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ import {CartStore} from '../../../features/cart/services/cart.store';
 })
 export class Header {
   cartStore = inject(CartStore);
+  favoriteStore = inject(FavoriteStore);
 
   isOpen: boolean = false;
   toggleMenu() {

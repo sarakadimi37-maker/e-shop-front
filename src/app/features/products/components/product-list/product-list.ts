@@ -5,6 +5,8 @@ import {Review} from '../../../../models/Review-model';
 import {Filter} from '../filter/filter';
 import {ProductApiService} from '../../services/product-api.service';
 import {CartStore} from '../../../cart/services/cart.store';
+import {FavoriteStore} from '../../../favorite/services/favorite.store';
+import {FavoriteFacade} from '../../../favorite/services/favorite.facade';
 
 @Component({
   selector: 'app-product-list',
@@ -20,12 +22,14 @@ export class ProductList implements OnInit {
 
   private productApi = inject(ProductApiService);
   private cartStore = inject(CartStore);
+  private favoriteStore = inject(FavoriteStore);
+  protected favoriteFacade = inject(FavoriteFacade);
 
   products = signal<Product[]>([]);
   isDeleting = signal<number | null>(null);
   categorySignal = signal<string[]>([]);
 
-  faviriteIds: number[] = [];
+ // favoriteIds: number[] = [];
   historiqueAllReviews: Review[] = [];
 
   async ngOnInit() {
@@ -65,32 +69,18 @@ export class ProductList implements OnInit {
   }
 
   /**
-    👇 Méthode appelée par un output envoyé depuis l'enfant
-   * methode qui traite les produis à mettre en favoris reçue depuis l'enfant
-   * @param product
-   */
-  onProductAddedToFavorite(product: Product): void {
-    this.faviriteIds.push(product.id);
-    console.log(`${product.name} ajouter au favoris`);
-  }
-
-  onProductRemoveFromFavorite(product: Product): void {
-    // ----------------??
-    this.faviriteIds = this.faviriteIds.filter(id => id !== product.id);
-    console.log(`${product.name} retiré de favoris`);
-  }
-  /**
    * methode qui retourn true s'il trouve l'id passer
    * en parametre dans la list faviriteIds
    * @param id c'est id de produit
    */
   isInFavorites(productId:number) {
-    return this.faviriteIds.includes(productId);
+    // chercher s'il esxiste un produit dans le favoris dont son id = à l'id passé en parametre
+    const favoriteProduct = this.favoriteStore.favorites().find(p => p.id === productId);
+    // on return true si le produit est diffirent de undifined sinon false.
+    return favoriteProduct !== undefined;
+
   }
 
-  getFavoritesCount(): number {
-    return this.faviriteIds.length;
-  }
   nbInStock (): number {
     return this.products().filter((p) => p.inStock).length;
   }
@@ -120,4 +110,5 @@ export class ProductList implements OnInit {
     }
   });
 
+  protected readonly FavoriteFacade = FavoriteFacade;
 }

@@ -5,7 +5,7 @@
         <h1>Mon panier</h1>
         <p class="subtitle">{{cartStoreService.productsInCart().length}} articles</p>
       </div>
-      <button class="btn-remove" style="font-size: 1.1rem; color: red;" (click)="cartFacade.clearProductsInCart()">Supprimer panier</button>
+      <button class="btn-clear" (click)="cartFacade.clearProductsInCart()">Supprimer panier</button>
     </div>
 
     <div class="cart-layout">

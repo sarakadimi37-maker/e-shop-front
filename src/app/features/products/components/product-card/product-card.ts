@@ -1,4 +1,4 @@
-import {Component, computed, effect, inject, input, output, signal} from '@angular/core';
+import {Component, effect, inject, input, output, signal} from '@angular/core';
 import {MatCard} from '@angular/material/card';
 import {RouterLink} from '@angular/router';
 import {Product} from '../../../../models/product-model';
@@ -8,8 +8,8 @@ import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 import {RateFormModel,} from '../../../../models/Rate-form-model';
 import {Review} from '../../../../models/Review-model';
-import {CartStore} from '../../../cart/services/cart.store';
 import {CartFacade} from '../../../cart/services/cart.facade';
+import {ProductCategories} from '../product-category/product-categories';
 
 
 @Component({
@@ -25,6 +25,7 @@ import {CartFacade} from '../../../cart/services/cart.facade';
     MatFormField,
     CdkTextareaAutosize,
     NgOptimizedImage,
+    ProductCategories,
 
   ],
   templateUrl: './product-card.html',
@@ -42,10 +43,7 @@ import {CartFacade} from '../../../cart/services/cart.facade';
 
   cartFacade = inject(CartFacade);
 
-  displayPrice = computed(()=>{
-    const p = this.product();
-    return p.inStock ? `${p.price}€` : 'Prix indisponible';
-  });
+
 
   constructor() {
     effect(() => {

@@ -68,13 +68,12 @@ export class CartFacade {
     this.cartStore.removeFromCart(productId);
     await this.cartApi.deleteCart(productId);
     this.notificationService.showSuccess("Produit a été supprimer avec succès.");
-
   }
 
   clearProductsInCart() {
     this.cartStore.productsInCart().forEach(async (item) => {
       await this.cartApi.deleteCart(item.product.id);
-    })
+    });
     this.cartStore.clearCart();
     this.notificationService.showSuccess("Le panier a été vider avec succès.");
   }

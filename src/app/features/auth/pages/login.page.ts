@@ -8,9 +8,6 @@ import {Login} from '../login/login';
   ],
   template: `
     <app-login></app-login>
-    <p>
-      login.page works!
-    </p>
   `,
   styles: ``
 })

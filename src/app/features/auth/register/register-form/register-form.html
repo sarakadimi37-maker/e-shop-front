@@ -155,13 +155,12 @@
               <input type="text" id="adresse-{{$index}}" class="form-input" placeholder="Adresse {{ $index+1}}" [value]="addresse.value"
                      [formControlName]="$index"  [attr.aria-invalid]="registerForm.controls.addresses.invalid">
               @if ($index != 0) {
-                <button type="button" (click)="addresses.removeAt($index)">Supprimer</button>
+                <button class="btn-clear" type="button" (click)="addresses.removeAt($index)">Supprimer</button>
               }
 
             </div>
           }
-          <button type="button" (click)="addresses.push(fb.control(''))">Ajouter une adresse</button>
-
+          <button class="btn-primary" type="button" (click)="addresses.push(fb.control(''))">Ajouter une adresse</button>
 
         </div>
 

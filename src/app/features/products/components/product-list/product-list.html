@@ -16,22 +16,19 @@
         <div class="products-toolbar">
           <p class="showing-results">Affichage de 1-5 sur {{products().length}} produits</p>
         </div>
-
         <div class="products-grid">
             @for (product of viewProducts(); track product.id) {
               <app-product-card
                 [product]="product"
                 [isFavorite]="isInFavorites(product.id)"
-                (productAddedToFavorites)="onProductAddedToFavorite($event)"
-                (productRemoveFromFavorites)="onProductRemoveFromFavorite($event)"
+                (productAddedToFavorites)="favoriteFacade.onProductAddedToFavorite($event)"
+                (productRemoveFromFavorites)="favoriteFacade.onProductRemoveFromFavorite($event)"
                 (rateAdded)="onAddedRate($event)"
               ></app-product-card>
             } @empty {
               <p>Aucun produit disponible...</p>
             }
-
         </div>
-
         <!-- Pagination -->
         <nav class="pagination" aria-label="Pagination des produits">
           <button class="pagination-btn pagination-prev" disabled aria-label="Page précédente">
