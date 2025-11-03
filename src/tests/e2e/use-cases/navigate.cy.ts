@@ -26,7 +26,7 @@ describe('Product list', () => {
     });
 
     cy.visit('/products');
-    cy.get('.product-card').should('have.length', 2);
+    cy.get('.product-card').should('have.length', 7);
   });
 });
 

@@ -1,6 +1,6 @@
-
-// src/tests/integration/product.facade.spec.ts
 /*
+// src/tests/integration/product.facade.spec.ts
+
 import { provideHttpClient } from "@angular/common/http";
 import { HttpClientTestingModule, HttpTestingController, provideHttpClientTesting } from "@angular/common/http/testing";
 import { provideZonelessChangeDetection } from "@angular/core";
@@ -10,6 +10,7 @@ import { ProductFacade } from "@app/tests/products/services/product.facade";
 import { ProductStore } from "@app/tests/products/services/product.store";
 import {CartItemModel} from '../../app/features/cart/model/cart-item-model';
 import {Product} from '../../app/models/product-model';
+import {environment} from '../../environments/environment';
 // 👆 Tu vois le "@app" ? C'est grâce à nos tsconfig qu'on peut l'utiliser 😉
 
 // Grappe de tests
@@ -45,7 +46,7 @@ describe('ProductFacade.createProduct (integration)', () => {
         const promise = facade.createProduct(dto);
 
         // 3. Assert (API)
-        const req = http.expectOne('https://jsonplaceholder.typicode.com/products');
+        const req = http.expectOne(`${environment.apiUrl}/products`);
         expect(req.request.method).toBe('POST');
         expect(req.request.body).toEqual(dto);
 
