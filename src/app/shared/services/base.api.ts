@@ -2,6 +2,7 @@ import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {firstValueFrom} from 'rxjs';
 import {ErrorService} from '../../core/services/error.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export abstract class BaseApi {
 
   protected http = inject(HttpClient);
   protected errorService = inject(ErrorService);
-  protected readonly BASE_URL = '';
+  protected readonly BASE_URL = environment.apiUrl;
 
   protected getHeaders(): HttpHeaders {
     return new HttpHeaders({
