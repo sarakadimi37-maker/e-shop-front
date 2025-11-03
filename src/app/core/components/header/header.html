@@ -1,0 +1,82 @@
+<nav role="menubar" class="header">
+  <!---
+  <div class="mobile">
+    <mat-icon aria-hidden="false" aria-label="menu icon" fontIcon="menu" (click)="toggleMenu()"></mat-icon>
+    <div id="mobile-menu" [ngClass]="isOpen? 'open': ''">
+      <mat-icon class="close-menu" aria-hidden="false" aria-label="close icon" fontIcon="close"
+                (click)="toggleMenu()"></mat-icon>
+      <ul>
+        <li>
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="toggleMenu()">Accueil</a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/products"  routerLinkActive="active" (click)="toggleMenu()">Produits</a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/about"  routerLinkActive="active" (click)="toggleMenu()">À propos</a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/register"  routerLinkActive="active" (click)="toggleMenu()">Register</a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/login"  routerLinkActive="active" (click)="toggleMenu()">Login</a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/settings"  routerLinkActive="active" (click)="toggleMenu()">Configuration</a>
+        </li>
+        <li>
+          <a class="nav-link" routerLink="/admin"  routerLinkActive="active" (click)="toggleMenu()">Admin</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  -->
+  <header class="desktop">
+    <div class="container">
+      <div class="header-content">
+        <a routerLink="/" class="logo">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 6L10 6L13 19L25 19L28 10L11 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round"/>
+            <circle cx="13" cy="25" r="2" fill="currentColor"/>
+            <circle cx="23" cy="25" r="2" fill="currentColor"/>
+          </svg>
+          <span>Ma Boutique</span>
+        </a>
+        <nav class="header-nav">
+          <a routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Accueil</a>
+          <a routerLink="/products" routerLinkActive="active" class="nav-link">Produits</a>
+          <a routerLink="/admin"  routerLinkActive="active" class="nav-link">Admin</a>
+          <a routerLink="/register" routerLinkActive="active" class="nav-link">Register</a>
+          <a routerLink="/login" routerLinkActive="active" class="nav-link">Login</a>
+          <a routerLink="/settings" routerLinkActive="active" class="nav-link">Configuration</a>
+          <a routerLink="/error" routerLinkActive="active" class="nav-link">Erreur</a>
+          <a routerLink="/about" routerLinkActive="active" class="nav-link">A pros pot</a>
+
+        </nav>
+        <!------------------------------- Voir le favoris ----------------------------------->
+
+        <div class="header-actions">
+          <a [routerLink]="['/favorite']" class="icon-btn" aria-label="Favoris">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M12 21L10.55 19.7C5.4 15.36 2 12.28 2 8.5C2 5.42 4.42 3 7.5 3C9.24 3 10.91 3.81 12 5.09C13.09 3.81 14.76 3 16.5 3C19.58 3 22 5.42 22 8.5C22 12.28 18.6 15.36 13.45 19.7L12 21Z"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span class="badge">{{favoriteStore.favorites().length}}</span>
+          </a>
+          <!------------------------------- Voir le panier ----------------------------------->
+          <a [routerLink]="['/cart']" class="icon-btn" aria-label="Panier">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 6L10 6L13 19L25 19L28 10L11 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round"/>
+              <circle cx="13" cy="25" r="2" fill="currentColor"/>
+              <circle cx="23" cy="25" r="2" fill="currentColor"/>
+            </svg>
+            <span class="badge">{{cartStore.productsInCart().length}}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+</nav>

@@ -1,0 +1,22 @@
+<!-- like-counter.html -->
+<div class="like-counter">
+  <h2>{{ userName() }}</h2>
+
+  <div class="likes-display">
+    <p>{{ likeMessage() }}</p>
+     @if (isPopular()) {
+       <p>🔥 Populaire !</p>
+     }
+  </div>
+
+  <div class="actions">
+    <button (click)="addLike()">👍 Like</button>
+    <button (click)="removeLike()">👎 Unlike</button>
+    <button (click)="resetLikes()">🔄 Reset</button>
+  </div>
+
+  <input
+    #nameInput
+    placeholder="Changer le nom"
+    (keyup.enter)="setUserName(nameInput.value)">
+</div>

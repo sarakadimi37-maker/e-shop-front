@@ -1,0 +1,14 @@
+<div class="search-form">
+  <h3>Recherch</h3>
+  <input [(ngModel)]="searchTerm" placeholder="Taper ici...">
+  <p>Vous recherchez {{ searchTerm }}</p>
+  <textarea [(ngModel)]="description" rows="4"></textarea >
+  <p>Description : {{description}}</p>
+  <select [(ngModel)]="category">
+    <option value="">Choisir une catégorie</option>
+    <option value="electronics">Électronique</option>
+    <option value="clothing">Vêtements</option>
+    <option value="books">Livres</option>
+    <p>Catégorie sélectionnée : {{ category }}</p>
+  </select>
+</div>

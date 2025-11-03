@@ -1,0 +1,54 @@
+<!-- Contenu principal -->
+<main class="main-content">
+  <div class="container">
+    <div class="page-header">
+      <div class="page-title-section">
+        <h1>Nos produits</h1>
+        <p class="products-count">{{products().length}} produits disponibles</p>
+      </div>
+    </div>
+
+    <div class="products-layout">
+     <app-filter
+     (chosenCategory)="categorySignal.set($event)"></app-filter>
+      <!-- Grille de produits -->
+      <div class="products-main">
+        <div class="products-toolbar">
+          <p class="showing-results">Affichage de 1-5 sur {{products().length}} produits</p>
+        </div>
+        <div class="products-grid">
+            @for (product of viewProducts(); track product.id) {
+              <app-product-card
+                [product]="product"
+                [isFavorite]="isInFavorites(product.id)"
+                (productAddedToFavorites)="favoriteFacade.onProductAddedToFavorite($event)"
+                (productRemoveFromFavorites)="favoriteFacade.onProductRemoveFromFavorite($event)"
+                (rateAdded)="onAddedRate($event)"
+              ></app-product-card>
+            } @empty {
+              <p>Aucun produit disponible...</p>
+            }
+        </div>
+        <!-- Pagination -->
+        <nav class="pagination" aria-label="Pagination des produits">
+          <button class="pagination-btn pagination-prev" disabled aria-label="Page précédente">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button class="pagination-number active" aria-label="Page 1" aria-current="page">1</button>
+          <button class="pagination-number" aria-label="Page 2">2</button>
+          <button class="pagination-number" aria-label="Page 3">3</button>
+          <button class="pagination-number" aria-label="Page 4">4</button>
+          <span class="pagination-dots">...</span>
+          <button class="pagination-number" aria-label="Page 21">21</button>
+          <button class="pagination-btn pagination-next" aria-label="Page suivante">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 4L14 10L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </nav>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,54 @@
+
+<div class="container">
+  <div class="header">
+    <h2>galary photos</h2>
+    <button (click)="refreshImages()"
+            [disabled]="isLoading()"
+            class="refresh-btn">
+      {{ isLoading() ? 'Chargement...' : 'Actualiser'}}
+    </button>
+  </div>
+
+
+  <!-- état de chargement -->
+  @if (isLoading()){
+    <div class="loading">
+      <p>Chargement des photos...</p>
+    </div>
+  }
+  <!-- gestion d'erreur -->
+  @if (error()){
+    <div class="error">
+      <p>{{ error()}}</p>
+      <button (click)="refreshImages()">Réessayer</button>
+    </div>
+  }
+<div class="">
+  @if (!isLoading() && !error() && photos().length > 0){
+    <div class="">
+      <p>nb like {{counter}}</p>
+      @for (photo of photos(); track photo.id) {
+        <div>
+          <img [src]="photo.download_url" alt="author" class="photo">
+          <h3>{{photo.title}}</h3>
+          @if (photo.liked){
+            <span>liked</span>
+          }@else{
+            <span>not liked</span>
+          }
+          <button (click)="toggleLike(photo.id)">like</button>
+        </div>
+      }
+    </div>
+  }
+</div>
+</div>
+
+
+
+
+
+
+
+
+

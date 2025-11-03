@@ -1,0 +1,17 @@
+@startuml
+title Diagramme d'activité - mise à jour de review
+start
+: Reception d'une review;
+: Récupération ID produit;
+: rechercher le produit dans la liste de produit;
+ if(produit exist) then
+ : ajouter la review dans l'historique de review;
+ : recuperer la liste de review pour ce produit;
+ : calculer le total de review;
+ :calculer la valeur moyenne;
+ : merttre à jour la review de produit;
+ else
+
+ endif
+stop
+@enduml
