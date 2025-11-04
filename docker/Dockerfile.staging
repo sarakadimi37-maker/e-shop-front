@@ -1,0 +1,4 @@
+# docker/Dockerfile.staging
+
+#Tout pareil mais "RUN npm run build" devient :
+RUN npm run build  --configuration=staging

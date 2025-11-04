@@ -10,7 +10,7 @@
     "test:unit": "ng test --watch=false",
     "test:integration": "ng test --configuration integration --watch=false",
     "cypress:open": "cypress open --config-file src/tests/config/cypress.config.ts",
-    "cypress:ci": "cypress run --config-file src/tests/config/cypress.config.ts"
+    "cypress:ci": "ng serve & cypress run --config-file src/tests/config/cypress.config.ts"
   },
   "prettier": {
     "printWidth": 100,
