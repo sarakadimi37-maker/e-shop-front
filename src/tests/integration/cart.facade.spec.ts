@@ -28,7 +28,9 @@ describe('Cart Facade', () => {
     category: "gaming",
     inStock: true,
     quantity: 3,
-    rating: 4.9
+    rating: 4.9,
+    isNew: true,
+    isPromo: false,
 
   };
 

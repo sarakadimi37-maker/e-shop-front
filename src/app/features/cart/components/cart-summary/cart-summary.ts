@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {CartStore} from '../../services/cart.store';
-import {CurrencyPipe, NgClass} from '@angular/common';
+import {CurrencyPipe, NgClass, NgOptimizedImage} from '@angular/common';
 import {CartFacade} from '../../services/cart.facade';
 import {NotificationService} from '../../../../shared/services/notification.service';
 import {FavoriteStore} from '../../../favorite/services/favorite.store';
@@ -9,7 +9,8 @@ import {FavoriteStore} from '../../../favorite/services/favorite.store';
   selector: 'app-cart-summary',
   imports: [
     NgClass,
-    CurrencyPipe
+    CurrencyPipe,
+    NgOptimizedImage
   ],
   templateUrl: './cart-summary.html',
   styleUrl: './cart-summary.scss'

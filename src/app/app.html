@@ -14,4 +14,6 @@
 <app-toast-error></app-toast-error>
 <app-show-notification></app-show-notification>
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+@if (!isHomePage) {
+  <app-footer></app-footer>
+}

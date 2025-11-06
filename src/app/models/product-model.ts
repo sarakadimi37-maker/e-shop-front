@@ -8,4 +8,6 @@ export type Product = {
   inStock: boolean,
   quantity: number,
   rating: number,
+  isNew: boolean,
+  isPromo: boolean,
 }
