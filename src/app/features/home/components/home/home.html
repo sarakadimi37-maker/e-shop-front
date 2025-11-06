@@ -1,0 +1,67 @@
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="hero-title">Bienvenue chez ma Boutique</h1>
+      <p class="hero-subtitle">Découvrez notre sélection exclusive de produits de qualité à des prix imbattables</p>
+      <div class="hero-buttons">
+        <a [routerLink]="['/products']" class="btn-primary-large">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 3L5 3L6.5 11L14 11L16 6L6.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="6.5" cy="14.5" r="1" fill="currentColor"/>
+            <circle cx="12.5" cy="14.5" r="1" fill="currentColor"/>
+          </svg>
+          Commencer vos achats
+        </a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="heroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#2563eb;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <rect width="400" height="400" fill="url(#heroGradient)" rx="20"/>
+        <circle cx="200" cy="200" r="120" fill="rgba(255,255,255,0.1)"/>
+        <circle cx="200" cy="200" r="80" fill="rgba(255,255,255,0.15)"/>
+        <g transform="translate(150, 150)">
+          <path d="M30 20L50 20L60 80L150 80L170 40L60 40" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="60" cy="100" r="8" fill="white"/>
+          <circle cx="140" cy="100" r="8" fill="white"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+<!-- Contenu principal -->
+<main class="main-content">
+  <div class="container">
+    <!-- Section Produits Phares -->
+    <section class="featured-section">
+      <div class="section-header">
+        <h2>Produits Phares</h2>
+        <p>Nos meilleures ventes et nouveautés</p>
+      </div>
+      <div class="featured-grid">
+
+    @for (product of products() ; track product.id) {
+      <article class="featured-card">
+        <div class="featured-image-wrapper">
+          @if (product.isNew) {
+            <span class="featured-badge badge-new">Nouveau</span>
+          } @else {
+            <span class="featured-badge badge-sale">-20%</span>
+          }
+          <img [ngSrc]="product.imageUrl" fill priority
+               [routerLink]="['/products']"
+               alt="{{product.name}}"
+               class="featured-image">
+        </div>
+      </article>
+    }
+      </div>
+    </section>
+
+  </div>
+</main>

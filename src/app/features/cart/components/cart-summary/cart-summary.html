@@ -15,7 +15,7 @@
         @for (item of cartStoreService.productsInCart(); track item.product.id) {
           <article class="cart-item">
             <div class="item-image">
-              <img [src]="item.product.imageUrl" alt="product.name">
+              <img [ngSrc]="item.product.imageUrl" fill priority alt="product.name">
             </div>
             <div class="item-details">
               <div class="item-header">
