@@ -6,6 +6,7 @@ import {ToastError} from './shared/components/toast-error';
 import {GlobalSpinner} from './core/components/global-spinner';
 import {ShowNotification} from './shared/components/show-notification.component';
 import {FavoriteFacade} from './features/favorite/services/favorite.facade';
+import {filter} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import {FavoriteFacade} from './features/favorite/services/favorite.facade';
 export class App implements OnInit {
   protected readonly title = signal('e-shop');
   loading = false;
+  isHomePage = false;
 
   favoriteFacade = inject(FavoriteFacade);
 
@@ -33,8 +35,15 @@ export class App implements OnInit {
       ) {
         console.log('Navigation end');
         this.loading = false;
+
       }
     });
+
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: NavigationEnd) => {
+        this.isHomePage = event.urlAfterRedirects === '/';
+      });
   }
 
   isConnected(): boolean {
