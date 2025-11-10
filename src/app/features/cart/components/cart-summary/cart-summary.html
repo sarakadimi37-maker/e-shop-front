@@ -47,7 +47,10 @@
               </div>
               <div class="item-price">
                 <span class="price-label">Prix</span>
-                <span class="price-value">{{item.product.price * item.quantity | currency :'EUR'}}</span>
+            <app-price-discount
+              [discountPercentage]="item.product.discountPercentage"
+              [price]="item.product.price * item.quantity"
+            ></app-price-discount>
               </div>
             </div>
           </article>
@@ -65,12 +68,12 @@
               @for (item of cartStoreService.productsInCart(); track item.product.id) {
                 <div style="display: flex; justify-content: space-between">
                   <span class="summary-label">Article #{{item.product.id}}</span>
-                  <span class="summary-label">{{item.quantity}} x {{item.product.price | currency : 'EUR'}}</span>
+                  <span class="summary-label">{{ProductUtile.getDiscountPrice(item.product.discountPercentage,
+                    (item.product.price * item.quantity))| currency : 'EUR'}}</span>
                 </div>
               }
             </div>
             <div class="summary-row">
-
               <span class="summary-label">Sous-total ({{subTotal()}} articles)</span>
               <span class="summary-value">{{cartStoreService.totalPrice() | currency : 'EUR'}}</span>
             </div>

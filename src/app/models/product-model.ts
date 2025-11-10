@@ -10,4 +10,6 @@ export type Product = {
   rating: number,
   isNew: boolean,
   isPromo: boolean,
+  discountPercentage?: number
+
 }

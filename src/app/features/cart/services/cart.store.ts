@@ -1,6 +1,7 @@
 import {computed, Injectable, signal} from '@angular/core';
 import {Product} from '../../../models/product-model';
 import {CartItemModel} from '../model/cart-item-model';
+import {ProductUtile} from '../../../shared/utile/product-utile';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +11,15 @@ export class CartStore {
   productsInCart = signal<CartItemModel[]>([]);
 
    totalPrice = computed(()=> {
-     /* version classique
-     const cartItemModels = this.productsInCart();
-     let sum = 0;
-     cartItemModels.forEach(item => {
-       sum += item.product.price * item.quantity;
-     });
-      return sum;
-      */
-    // version avec fonction reduce
      return this.productsInCart()
-       .reduce((sum, item) => (item.quantity * item.product.price) + sum, 0)
+      // .reduce((sum, item) =>
+        // (item.quantity * item.product.price) + sum, 0)
+       .reduce((sum, item) =>
+         (ProductUtile
+           .getDiscountPrice(
+             item.product.discountPercentage,
+             (item.product.price * item.quantity)
+           )) + sum, 0)
    });
 
 
