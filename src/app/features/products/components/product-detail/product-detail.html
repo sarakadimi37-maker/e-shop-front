@@ -1,16 +1,3 @@
-<!-- Fil d'Ariane -->
-<nav class="breadcrumb" aria-label="Breadcrumb">
-  <div class="container">
-    <a routerLink="/">Accueil</a>
-    <span class="separator">/</span>
-    <a routerLink="/products">Produits</a>
-    <span class="separator">/</span>
-    <a [routerLink]="['products/:id']">{{ product()?.category }}</a>
-    <span class="separator">/</span>
-    <span class="current">{{ product()?.name }}</span>
-  </div>
-</nav>
-
 <main class="main-content">
   @if (product() != undefined) {
     <div class="container">
@@ -60,11 +47,7 @@
                 </div>
                 <span class="rating-value">{{ product()?.rating }}</span>
               </div>
-              <div class="rating-stats">
-                <span class="review-count">127 avis</span>
-                <span class="separator">•</span>
-                <span class="sold-count">2,450 vendus</span>
-              </div>
+
             </div>
             <div style="border: 1px solid #cccccc"></div>
             <div class="stock-status" [ngClass]="product()?.inStock ? 'in-stock': 'out-of-stock'">
