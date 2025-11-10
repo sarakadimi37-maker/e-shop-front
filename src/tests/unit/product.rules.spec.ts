@@ -15,6 +15,8 @@ describe('ProductRules (unit tests)', () => {
       inStock: true,
       quantity: 5,
       rating: 5,
+      isPromo: true,
+      isNew: true,
      // active: true
     };
   });

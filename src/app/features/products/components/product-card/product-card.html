@@ -3,7 +3,10 @@
 
   <article class="product-card" id="prod_{{product().id}}">
     <div class="product-image-wrapper">
-      <button class="btn-favorite" (click)="onToogleFavorite()" [ngClass]="isFavorite() ? 'active' : '' " aria-label="Ajouter aux favoris">
+      <button class="btn-favorite"
+              (click)="onToogleFavorite()"
+              [ngClass]="isFavorite() ? 'active' : '' "
+              aria-label="Ajouter aux favoris">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M10 17.5L8.79 16.4C4.5 12.64 1.67 10.13 1.67 7.08C1.67 4.57 3.57 2.67 6.08 2.67C7.53 2.67 8.93 3.34 10 4.42C11.07 3.34 12.47 2.67 13.92 2.67C16.43 2.67 18.33 4.57 18.33 7.08C18.33 10.13 15.5 12.64 11.21 16.4L10 17.5Z"/>
           </svg>
@@ -31,22 +34,26 @@
           <span> En rupture</span>
         }
       </div>
-      <!---------- incrément de quantité---------->
-      <div class="item-actions">
-        <div class="quantity-selector">
-          <label for="qty-1" class="quantity-label">Quantité</label>
-          <div class="quantity-controls">
-            <button class="qty-btn" aria-label="Diminuer la quantité" (click)="decQt()">−</button>
-            <input type="number" readonly class="qty-input" [value]="qtOfBuy()" aria-label="Quantité">
-            <button class="qty-btn" aria-label="Augmenter la quantité" (click)="incQt()">+</button>
+      <!---------- prix---------->
+      <div class="product-price">
+        <app-price-discount
+          [price]="product().price"
+          [discountPercentage]="product().discountPercentage">
+        </app-price-discount>
+      </div>
+      <div class="product-footer">
+        <!----------  quantité---------->
+        <div class="item-actions">
+          <div class="quantity-selector">
+            <label for="qty-1" class="quantity-label">Quantité</label>
+            <div class="quantity-controls">
+              <button class="qty-btn" (click)="decQt()" aria-label="Diminuer la quantité" >−</button>
+              <input type="number" readonly class="qty-input" [value]="qtOfBuy()" aria-label="Quantité">
+              <button class="qty-btn" (click)="incQt()" aria-label="Augmenter la quantité" >+</button>
+            </div>
           </div>
         </div>
-      </div>
-      <!---------- fin d'incrément de quantité---------->
-      <div class="product-footer">
-        <div class="product-price">
-          <span class="price-current">{{product().price | currency : 'EUR'}}</span>
-        </div>
+
           <button class="btn-add-to-cart"  (click)="cartFacade.add(product(), qtOfBuy())" [disabled]="!product().inStock">
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M3 3L5 3L6.5 11L14 11L16 6L6.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -56,37 +63,8 @@
             Ajouter
           </button>
       </div>
-      <mat-card class="product" [ngClass]="product().inStock ? 'stock' : 'out-of-stock'" appearance="outlined">
 
-        <!------- formulaire de note ----------------------->
-        <button  type="button" (click)="onToogleShowRatingForm()">Noter ce produit</button>
-        @if (showRatingForm){
-          <form [formGroup]="ratingForm">
-            <h4>Votre avis compte</h4>
-            <mat-form-field>
-              <mat-label>Avis</mat-label>
-              <select matNativeControl formControlName="rate">
-                <option value="1">⭐</option>
-                <option value="2">⭐⭐</option>
-                <option value="3">⭐⭐⭐</option>
-                <option value="4">⭐⭐⭐⭐</option>
-                <option value="5">⭐⭐⭐⭐⭐</option>
-              </select>
-            </mat-form-field>
-            <mat-form-field>
-              <mat-label>Commentaire</mat-label>
-              <textarea matInput
-                        formControlName="comment"
-                        cdkTextareaAutosize
-                        #autosize="cdkTextareaAutosize"
-                        cdkAutosizeMinRows="1"
-                        cdkAutosizeMaxRows="5">
-    </textarea>
-            </mat-form-field>
-            <button type="submit" [disabled]="ratingForm.invalid" (click)="sendRate()">Envoyer</button>
-          </form>
-        }
-      </mat-card>
+
     </div>
   </article>
 

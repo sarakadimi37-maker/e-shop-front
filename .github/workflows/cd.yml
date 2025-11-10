@@ -68,3 +68,55 @@ jobs:
             docker compose pull
             docker compose down && docker compose up -d
           EOF
+
+  health-check:
+    runs-on: ubuntu-latest
+    needs: deploy
+
+    steps:
+      - name: Vérifier le health endpoint
+        id: health
+        run: |
+          URL_FRONT=https://utilix.fr/health
+          if [[ "${GITHUB_REF##*/}" == "staging" ]]; then
+            URL_FRONT=https://staging.utilix.fr/health
+          fi
+          RESPONSE=$(curl -s $URL_FRONT || echo "error")
+          echo "Réponse du serveur : $RESPONSE"
+
+          if [ "$RESPONSE" = '{"status":"OK"}' ]; then
+            echo "status=ok" >> $GITHUB_OUTPUT
+          else
+            echo "status=fail" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Envoyer email (succès)
+        if: steps.health.outputs.status == 'ok'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.mail.ovh.net
+          server_port: 465
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          subject: "✅ Déploiement réussi"
+          to: ${{ secrets.MAIL_TO }}
+          from: "CI-CD Bot <${{ secrets.SMTP_USER }}>"
+          body: |
+            ✔️ Le déploiement de la version ${{ needs.build-and-push.outputs.tag }} a réussi 🎉
+            ✅ Health check OK : l'application est en ligne !
+
+      - name: Envoyer email (échec)
+        if: steps.health.outputs.status == 'fail'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.SMTP_USER }}
+          password: ${{ secrets.SMTP_PASS }}
+          subject: "❌ Déploiement échoué"
+          to: ${{ secrets.MAIL_TO }}
+          from: "CI-CD Bot <${{ secrets.SMTP_USER }}>"
+          body: |
+            ❗ Le déploiement de la version ${{ needs.build-and-push.outputs.tag }} a échoué ❌
+            🚫 Health check KO : http://serveur.fr/health n'a pas renvoyé {"status":"OK"}.
+            ⚠️ Merci de vérifier les logs et l'application.

@@ -22,6 +22,8 @@ describe('CartRules', () => {
       inStock: true,
       quantity: 5,
       rating: 5,
+      isPromo: false,
+      isNew: false,
       // active: true
     };
 

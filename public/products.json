@@ -8,7 +8,10 @@
     "category": "gaming",
     "inStock": true,
     "quantity": 3,
-    "rating": 4.9
+    "rating": 4.9,
+    "isPromo": true,
+    "isNew": false,
+    "discountPercentage": 20
   },
   {
     "id": 2,
@@ -19,7 +22,10 @@
     "category": "clothing",
     "inStock": true,
     "quantity": 8,
-    "rating": 4.5
+    "rating": 4.5,
+    "isPromo": true,
+    "isNew": false,
+    "discountPercentage": 17
   },
   {
     "id": 3,
@@ -30,7 +36,10 @@
     "category": "home",
     "inStock": false,
     "quantity": 0,
-    "rating": 4.2
+    "rating": 4.2,
+    "isPromo": true,
+    "isNew": true,
+    "discountPercentage": 5
   },
   {
     "id": 4,
@@ -41,7 +50,10 @@
     "category": "electronics",
     "inStock": true,
     "quantity": 3,
-    "rating": 4.7
+    "rating": 4.7,
+    "isPromo": false,
+    "isNew": false
+
   },
   {
     "id": 5,
@@ -52,28 +64,21 @@
     "category": "sports",
     "inStock": false,
     "quantity": 0,
-    "rating": 4.3
+    "rating": 4.3,
+    "isPromo": false,
+    "isNew": true
   },
   {
-    "id": null,
-    "name": "produit test sans id",
-    "description": "bla labjkgbjk",
+    "id": 6,
+    "name": "Yoga Mat Premium",
+    "description": "Tapis de yoga antidérapant 6mm épaisseur, écologique",
     "price": 45.5,
     "imageUrl": "https://placehold.co/300x200/9370DB/ffffff?text=Yoga",
     "category": "sports",
     "inStock": true,
     "quantity": 6,
-    "rating": 4.3
-  },
-  {
-    "id": 7,
-    "name": "produit test prix",
-    "description": "bla labjkgbjk",
-    "price": 500000,
-    "imageUrl": "https://placehold.co/300x200/9370DB/ffffff?text=Yoga",
-    "category": "sports",
-    "inStock": true,
-    "quantity": 5,
-    "rating": 4.3
+    "rating": 4.3,
+    "isPromo": false,
+    "isNew": true
   }
 ]

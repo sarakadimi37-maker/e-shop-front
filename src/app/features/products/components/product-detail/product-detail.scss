@@ -1,0 +1,356 @@
+.main-content {
+  padding: var(--spacing-xl) 0;
+}
+.product-detail-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-2xl);
+  background-color: var(--color-bg);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+.product-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.main-image-wrapper {
+  position: relative;
+  width: 100%;
+  padding-top: 100%;
+  background-color: var(--color-bg-gray);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.main-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-badge {
+  position: absolute;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  z-index: 2;
+}
+
+.badge-new {
+  background-color: var(--color-new);
+  color: white;
+}
+/* ========================================
+   INFORMATIONS PRODUIT
+   ======================================== */
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-lg);
+}
+
+.product-title-section {
+  flex: 1;
+}
+
+.product-category-tag {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background-color: #eff6ff;
+  color: var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.product-name {
+  font-size: 1.75rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.product-subtitle {
+  color: var(--color-text-light);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.btn-favorite {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--color-bg-gray);
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--color-text-lighter);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btn-favorite:hover {
+  background-color: #fef2f2;
+  color: var(--color-favorite);
+  transform: scale(1.05);
+}
+
+.btn-favorite.active {
+  color: var(--color-danger);
+}
+/* ========================================
+   SECTION ÉVALUATION
+   ======================================== */
+
+.product-rating-section {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing-lg);
+  background-color: var(--color-bg-gray);
+  border-radius: var(--radius-lg);
+}
+
+.rating-display {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.stars-large {
+  display: flex;
+  align-items: center;
+}
+
+.stars {
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+}
+
+.stars.filled {
+  color: var(--color-warning);
+}
+
+.stars:not(.filled) {
+  color: var(--color-border);
+}
+
+.rating-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.rating-stats {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-text-light);
+  font-size: 0.9375rem;
+}
+
+.btn-add-to-cart,
+ {
+  flex: 1;
+  font-size: 1rem;
+  justify-content: center;
+}
+.quantity {
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background-color: white;
+  border-radius: var(--radius-md);
+}
+/* ========================================
+   ACCORDION - description et avis sur produit
+   ======================================== */
+
+.accordion {
+  max-width: 600px;
+  margin: 1em auto;
+  font-family: Arial, sans-serif;
+}
+
+.accordion-input {
+  display: none; /* Hide the checkbox visually */
+}
+
+.accordion-label {
+  display: block;
+  cursor: pointer;
+  padding: 1em;
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  border-radius: 6px;
+  user-select: none;
+  font-size: 1.1rem;
+  transition: background-color 0.3s;
+}
+
+.accordion-label:hover,
+.accordion-label:focus {
+  background-color: var(--color-primary-dark);
+  outline: none;
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 1em;
+  background-color: white;
+  border-radius: 0 0 6px 6px;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+/* Show content when checked */
+.accordion-input:checked ~ .accordion-content {
+  max-height: 500px; /* Adjust max-height to fit content */
+  padding: 1em;
+}
+
+/* Plus/minus icon */
+.accordion-label::after {
+  content: '+';
+  float: right;
+  font-weight: bold;
+  transition: transform 0.3s ease;
+  font-size: 1.3rem;
+}
+
+.accordion-input:checked + .accordion-label::after {
+  content: '-';
+}
+
+/* Responsive enhancements */
+@media (max-width: 480px) {
+  .accordion-label {
+    font-size: 1rem;
+    padding: 0.75em 1em;
+  }
+
+  .accordion-content {
+    font-size: 0.95rem;
+    padding: 0 0.75em;
+  }
+
+  .accordion-input:checked ~ .accordion-content {
+    max-height: 400px;
+    padding: 0.75em 1em;
+  }
+
+  .accordion-label::after {
+    font-size: 1.2rem;
+  }
+}
+/* ========================================
+   formulaire de rating
+   ======================================== */
+
+.ratingControl {
+  position: relative;
+  display: inline-flex;
+  direction: rtl;
+
+  &__radio {
+    position: absolute;
+    height: 0;
+    width: 0;
+    opacity: 0;
+  }
+
+  &__star {
+    position: relative;
+    display: block;
+    height: 48px;
+    width: 24px;
+    cursor: pointer;
+    overflow: hidden;
+
+    &:nth-last-of-type(odd) {
+      &::before,
+      &::after {
+        left: 0;
+        clip-path: polygon(50% 0%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      }
+    }
+
+    &:nth-last-of-type(even) {
+      &::before,
+      &::after {
+        right: 0;
+        clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%);
+      }
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      height: 100%;
+    }
+
+    &::before {
+      width: 200%;
+      background-color: #aaa;
+    }
+
+    &::after {
+      background-color: #f2b600;
+    }
+  }
+
+  &__star:hover::after,
+  &__star:hover ~ .ratingControl__star::after,
+  &__radio:checked ~ .ratingControl__star::after {
+    width: 200%;
+  }
+
+}
+
+textarea {
+  width: 100%;
+  --padding: 10px;
+  min-height: calc(10lh + 2 * var(--padding));
+  max-height: calc(10lh + 2 * var(--padding));
+  padding: var(--padding);
+  line-height: 1;
+  padding-inline: calc(var(--padding) + calc((1lh - 1ex) / 2));
+  resize: none;
+  border-radius: .5rem;
+}
+
+@supports (field-sizing: content) {
+  textarea {
+    min-height: calc(3lh + 2 * var(--padding));
+    max-height: calc(10lh + 2 * var(--padding));
+    field-sizing: content;
+  }
+}
+
+
+

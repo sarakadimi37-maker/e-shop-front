@@ -7,6 +7,7 @@ import {ProductApiService} from '../../services/product-api.service';
 import {CartStore} from '../../../cart/services/cart.store';
 import {FavoriteStore} from '../../../favorite/services/favorite.store';
 import {FavoriteFacade} from '../../../favorite/services/favorite.facade';
+import {ProductStore} from '../../services/product.store';
 
 @Component({
   selector: 'app-product-list',
@@ -21,16 +22,18 @@ import {FavoriteFacade} from '../../../favorite/services/favorite.facade';
 export class ProductList implements OnInit {
 
   private productApi = inject(ProductApiService);
+  protected productStore = inject(ProductStore);
   private cartStore = inject(CartStore);
   private favoriteStore = inject(FavoriteStore);
   protected favoriteFacade = inject(FavoriteFacade);
+
 
   products = signal<Product[]>([]);
   isDeleting = signal<number | null>(null);
   categorySignal = signal<string[]>([]);
 
  // favoriteIds: number[] = [];
-  historiqueAllReviews: Review[] = [];
+
 
   async ngOnInit() {
    await this.loadProducts();
@@ -39,15 +42,29 @@ export class ProductList implements OnInit {
   async loadProducts(): Promise<void> {
     try {
       const products :Product[] = await this.productApi.getProducts();
-      const productsStore = this.cartStore.productsInCart();
+
+      const productsinCart = this.cartStore.productsInCart();
       products.forEach(product => {
+
+        // mettre à jour la quantité d'un produit si celui a été ajouter dans le cart
         // trouver si le produit exist deja dans le panier
-       const storeItem = productsStore
+       const storeItem = productsinCart
          .find(element => element.product.id === product.id);
        if(storeItem) {
+         // on sousstrait la quantité de produit qui est dans panier au produit(mettre à jour de stock)
          product.quantity -= storeItem.quantity;
        }
-      })
+
+       // mettre à jour les avis
+        const allReviews = this.productStore.historiqueAllReviews();
+       if(allReviews.has(product.id)) {
+         const productReviews = allReviews.get(product.id)!;
+         const ratingSum = productReviews.reduce((sum, review) => sum+review.rating, 0);
+         const ratingAverage = ratingSum / productReviews.length;
+         // mettre à jour la moyenne des avis en prennant en compte les avis initial du produit
+         product.rating = (product.rating + ratingAverage) / 2;
+       }
+      });
       this.products.set(products);
     }catch(err) {
       console.error(err);
@@ -84,21 +101,6 @@ export class ProductList implements OnInit {
   nbInStock (): number {
     return this.products().filter((p) => p.inStock).length;
   }
-  onAddedRate(review: Review): void {
-    const productId = review.productId;
-    let produit = this.products().find((product: Product) => product.id === productId);
-    if(produit) {
-      this.historiqueAllReviews.push(review);
-      let historiqueReviewProduit = this.historiqueAllReviews.filter(r => r.productId === productId);
-
-      let totalRate = 0;
-      historiqueReviewProduit.forEach((review: Review) => {
-        totalRate += review.rating;
-      });
-      produit.rating = totalRate / historiqueReviewProduit.length;
-    }
-     console.log("review =>" + this.historiqueAllReviews);
-  }
 
   viewProducts = computed(()=>{
     const categories : string[] = this.categorySignal();
@@ -110,5 +112,4 @@ export class ProductList implements OnInit {
     }
   });
 
-  protected readonly FavoriteFacade = FavoriteFacade;
 }
