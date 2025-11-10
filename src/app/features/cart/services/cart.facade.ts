@@ -32,6 +32,7 @@ export class CartFacade {
         // Create mode
         this.cartStore.addProductToCart(product, qtOfBuy!);
 
+
         await this.cartApi.createCart({product: product, quantity: qtOfBuy! });
         this.notificationService.showSuccess("Produit a été ajouter avec succès.");
       }
@@ -54,6 +55,7 @@ export class CartFacade {
       CartRules.validateRemove(product.id, qtOfRemove, productInCart);
       this.cartStore.reduceQtOfProduct(product.id, qtOfRemove);
       await this.cartApi.updateCart({product: product, quantity: qtOfRemove! });
+      product.quantity += qtOfRemove!;
     }catch(error){
       // dans le cas de problème levé via l'appel de validateAdd de Rule
       if(error instanceof Error){

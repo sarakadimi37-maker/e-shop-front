@@ -1,16 +1,15 @@
 import {Component, inject} from '@angular/core';
-import {ProductCard} from '../components/product-card/product-card';
 import {ActivatedRoute} from '@angular/router';
 import {Product} from '../../../models/product-model';
+import {ProductDetail} from '../components/product-detail/product-detail';
 
 @Component({
   selector: 'app-product-detail.page',
   imports: [
-    ProductCard
+    ProductDetail
   ],
   template: `
-    <app-product-card [product]="product"></app-product-card>
-
+    <app-product-detail></app-product-detail>
   `,
   styles: ``
 })

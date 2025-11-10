@@ -1,0 +1,9 @@
+<div class="price-display">
+  @if (discountPercentage()) {
+    <span class="price-current">{{calculatePrice() | currency : 'EUR' }}</span>
+    <span class="price-old">{{price() | currency : 'EUR' }}</span>
+    <span class="discount-badge">-{{discountPercentage()}}%</span>
+  } @else {
+    <span class="price-current">{{ price() | currency : 'EUR' }}</span>
+  }
+</div>

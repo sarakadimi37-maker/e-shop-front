@@ -23,12 +23,13 @@
                 [isFavorite]="isInFavorites(product.id)"
                 (productAddedToFavorites)="favoriteFacade.onProductAddedToFavorite($event)"
                 (productRemoveFromFavorites)="favoriteFacade.onProductRemoveFromFavorite($event)"
-                (rateAdded)="onAddedRate($event)"
+
               ></app-product-card>
             } @empty {
               <p>Aucun produit disponible...</p>
             }
         </div>
+        <!--  (rateAdded)="onAddedRate($event)" -->
         <!-- Pagination -->
         <nav class="pagination" aria-label="Pagination des produits">
           <button class="pagination-btn pagination-prev" disabled aria-label="Page précédente">

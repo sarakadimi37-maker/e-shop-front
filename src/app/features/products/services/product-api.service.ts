@@ -12,8 +12,13 @@ export class ProductApiService extends BaseApi{
     return this.get<Product[]>(this.endpoint);
   }
 
-  async  getProductById(id: number): Promise<Product> {
-    return this.get<Product>(`${this.endpoint}/${id}`);
+  async  getProductById(id: number): Promise<Product | undefined> {
+    //simulation de methode getById en attendant de l'api
+    const products = await this.getProducts();
+    const product = products.find((p)=>p.id === id);
+    return Promise.resolve(product);
+    // à decommenter dès la reception de API java
+    //return this.get<Product>(`${this.endpoint}/${id}`);
   }
 
   async createProduct(product: Product): Promise<Product> {
