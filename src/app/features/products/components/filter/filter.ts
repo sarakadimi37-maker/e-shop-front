@@ -5,7 +5,13 @@ export type CategoryType = {
   label: string,
   value: string,
 };
-
+export  let categories : Array<CategoryType> = [
+  {label: '👕 Mode', value: 'clothing'},
+  {label: '🎮 Jeux vidéo', value: 'gaming'},
+  {label: '🏠 Maison', value: 'home'},
+  {label: '⚽ Sport', value: 'sports'},
+  {label: '📱 High-tech', value: 'electronics'}
+];
 @Component({
   selector: 'app-filter',
   imports: [
@@ -15,13 +21,14 @@ export type CategoryType = {
   styleUrl: './filter.scss'
 })
 export class Filter implements OnInit {
+  cat = categories;
   ngOnInit(): void {
     this.categoriesForm.valueChanges.subscribe(event => {
       console.log(JSON.stringify(event));
       const filterCategory: string[] = [];
       for (let i = 0; i < event.categoriesArray!.length; i++) {
         if(event.categoriesArray![i] === true) {
-          let cat = this.categories[i];
+          let cat = categories[i];
           filterCategory.push(cat.value);
         }
       }
@@ -29,16 +36,10 @@ export class Filter implements OnInit {
       this.chosenCategory.emit(filterCategory);
     })
   }
-  categories : Array<CategoryType> = [
-    {label: 'Mode', value: 'clothing'},
-    {label: 'Jeux vidéo', value: 'gaming'},
-    {label: 'Maison', value: 'home'},
-    {label: 'Sport', value: 'sports'},
-    {label: 'Electronique', value: 'electronics'}
-  ];
+
   protected fb = inject(NonNullableFormBuilder);
   categoriesArray = this.fb.array(
-    this.categories.map(category => {
+    categories.map(category => {
       return this.fb.control(false)
     })
   );

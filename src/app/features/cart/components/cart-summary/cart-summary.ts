@@ -4,13 +4,16 @@ import {CurrencyPipe, NgClass, NgOptimizedImage} from '@angular/common';
 import {CartFacade} from '../../services/cart.facade';
 import {NotificationService} from '../../../../shared/services/notification.service';
 import {FavoriteStore} from '../../../favorite/services/favorite.store';
+import {PriceDiscount} from '../../../products/components/price-discount/price-discount';
+import {ProductUtile} from '../../../../shared/utile/product-utile';
 
 @Component({
   selector: 'app-cart-summary',
   imports: [
     NgClass,
     CurrencyPipe,
-    NgOptimizedImage
+    NgOptimizedImage,
+    PriceDiscount
   ],
   templateUrl: './cart-summary.html',
   styleUrl: './cart-summary.scss'
@@ -27,4 +30,5 @@ export class CartSummary {
   }
 
 
+  protected readonly ProductUtile = ProductUtile;
 }

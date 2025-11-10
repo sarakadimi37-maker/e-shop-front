@@ -1,10 +1,10 @@
-<section class="hero">
+<section class="hero" xmlns:margin-left="http://www.w3.org/1999/xhtml" xmlns:margin-left="http://www.w3.org/1999/xhtml">
   <div class="hero-content">
     <div class="hero-text">
       <h1 class="hero-title">Bienvenue chez ma Boutique</h1>
       <p class="hero-subtitle">Découvrez notre sélection exclusive de produits de qualité à des prix imbattables</p>
       <div class="hero-buttons">
-        <a [routerLink]="['/products']" class="btn-primary-large">
+        <a routerLink="/products" class="btn-primary-large">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3 3L5 3L6.5 11L14 11L16 6L6.5 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             <circle cx="6.5" cy="14.5" r="1" fill="currentColor"/>
@@ -48,15 +48,22 @@
     @for (product of products() ; track product.id) {
       <article class="featured-card">
         <div class="featured-image-wrapper">
-          @if (product.isNew) {
-            <span class="featured-badge badge-new">Nouveau</span>
-          } @else {
-            <span class="featured-badge badge-sale">-20%</span>
-          }
+          <div>
+            @if (product.isNew) {
+              <span class="featured-badge badge-new">Nouveau</span>
+            }
+            @if (product.isPromo) {
+              <span class="featured-badge badge-sale"
+                    [style]="product.isNew ? 'margin-left: 90px' : ''">
+                -{{product.discountPercentage}}%</span>
+            }
+          </div>
+
+
           <img [ngSrc]="product.imageUrl" fill priority
-               [routerLink]="['/products']"
                alt="{{product.name}}"
-               class="featured-image">
+               class="featured-image"
+               [routerLink]="['/products', product.id]">
         </div>
       </article>
     }

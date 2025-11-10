@@ -10,7 +10,8 @@
     "quantity": 3,
     "rating": 4.9,
     "isPromo": true,
-    "isNew": false
+    "isNew": false,
+    "discountPercentage": 20
   },
   {
     "id": 2,
@@ -22,8 +23,9 @@
     "inStock": true,
     "quantity": 8,
     "rating": 4.5,
-    "isPromo": false,
-    "isNew": true
+    "isPromo": true,
+    "isNew": false,
+    "discountPercentage": 17
   },
   {
     "id": 3,
@@ -35,8 +37,9 @@
     "inStock": false,
     "quantity": 0,
     "rating": 4.2,
-    "isPromo": false,
-    "isNew": true
+    "isPromo": true,
+    "isNew": true,
+    "discountPercentage": 5
   },
   {
     "id": 4,
@@ -48,8 +51,9 @@
     "inStock": true,
     "quantity": 3,
     "rating": 4.7,
-    "isPromo": true,
+    "isPromo": false,
     "isNew": false
+
   },
   {
     "id": 5,
@@ -61,7 +65,7 @@
     "inStock": false,
     "quantity": 0,
     "rating": 4.3,
-    "isPromo": true,
+    "isPromo": false,
     "isNew": true
   },
   {
@@ -75,7 +79,6 @@
     "quantity": 6,
     "rating": 4.3,
     "isPromo": false,
-    "isNew": false
+    "isNew": true
   }
-
 ]
