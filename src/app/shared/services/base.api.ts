@@ -15,6 +15,13 @@ export abstract class BaseApi {
   protected readonly BASE_URL = environment.apiUrl;
 
   protected getHeaders(): HttpHeaders {
+    const token = localStorage.getItem("token");
+    if(token != null) {
+      return new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      });
+    }
     return new HttpHeaders({
       'Content-Type': 'application/json'
     });
