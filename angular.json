@@ -84,7 +84,8 @@
               "buildTarget": "e-shop:build:production"
             },
             "development": {
-              "buildTarget": "e-shop:build:development"
+              "buildTarget": "e-shop:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

@@ -24,8 +24,16 @@ export class Login {
     password: this.fb.control('', [Validators.required]),
   });
 
-  submit() {
-    this.auth.authenticate(this.loginForm.controls['email'].value);
-    this.router.navigate(['/']);
+  async submit() {
+    const login = this.loginForm.controls['email'].value;
+    const pwd = this.loginForm.controls['password'].value;
+    const result: boolean = await this.auth.authenticate(login, pwd);
+    if(result) {
+      this.router.navigate(['/']);
+    }else{
+      // todo
+      console.error('Unable to authenticate');
+    }
+
   }
 }

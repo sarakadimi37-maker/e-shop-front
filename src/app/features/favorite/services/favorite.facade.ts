@@ -30,12 +30,15 @@ export class FavoriteFacade {
     this.notificationService.showSuccess("Votre liste des produits en favori a été vider avec succès.");
   }
 
-  onProductAddedToFavorite(product: Product): void {
+  async onProductAddedToFavorite(product: Product): Promise<void> {
     this.favoriteStore.favorites.update((products)=> [...products, product]);
+    await this.favoriteApi.createFavorite(product.id);
   }
 
-  onProductRemoveFromFavorite(product: Product): void {
+  async onProductRemoveFromFavorite(product: Product): Promise<void> {
     // this.favoriteIds = this.favoriteIds.filter(id => id !== product.id);
+    await this.favoriteApi.deleteFavorite(product.id);
+
     this.favoriteStore.favorites.update((products)=> products
       .filter(p => p.id !== product.id));
   }

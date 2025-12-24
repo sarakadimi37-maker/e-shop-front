@@ -1,15 +1,22 @@
 import { Injectable } from '@angular/core';
 import {BaseApi} from '../../../shared/services/base.api';
 import {Product} from '../../../models/product-model';
+import {ProductsPaginate} from '../../../models/ProductsPaginate';
+import {Pageable} from '../../../models/Pageable';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductApiService extends BaseApi{
   private readonly endpoint = '/products.json';
+  private readonly endpointProduct = '/e-shop/products';
 
   async getProducts(): Promise<Product[]> {
     return this.get<Product[]>(this.endpoint);
+  }
+  async getProductsPaginate(pageable: Pageable): Promise<ProductsPaginate> {
+
+    return this.get<ProductsPaginate>(`${this.endpointProduct}?page=${pageable.page}&size=${pageable.size}`);
   }
 
   async  getProductById(id: number): Promise<Product | undefined> {

@@ -1,4 +1,4 @@
-export class Pagable {
+export class Pageable {
   page: number;
   size: number;
 

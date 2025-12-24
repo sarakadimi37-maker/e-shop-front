@@ -1,6 +1,6 @@
 import {Component, inject, OnInit, output, signal} from '@angular/core';
 import {Product} from '../../../../models/product-model';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ProductApiService} from '../../services/product-api.service';
 import {NgClass, NgOptimizedImage} from '@angular/common';
 import {ConverterCategory} from '../../../../shared/utile/ConverterCategory';
@@ -17,7 +17,6 @@ import {PriceDiscount} from '../price-discount/price-discount';
 @Component({
   selector: 'app-product-detail',
   imports: [
-    RouterLink,
     NgOptimizedImage,
     NgClass,
     FormsModule,
