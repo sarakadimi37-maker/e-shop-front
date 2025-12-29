@@ -1,14 +1,21 @@
-import {computed, Injectable, signal} from '@angular/core';
+import {computed, inject, Injectable, signal} from '@angular/core';
 import {Product} from '../../../models/product-model';
 import {CartItemModel} from '../model/cart-item-model';
 import {ProductUtile} from '../../../shared/utile/product-utile';
+import {CartApi} from './cart.api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartStore {
 
+  cartApi: CartApi = inject(CartApi);
   productsInCart = signal<CartItemModel[]>([]);
+
+  async loadProductInCart() {
+    const cartItems = await this.cartApi.getCarts();
+    this.productsInCart.set(cartItems);
+  }
 
    totalPrice = computed(()=> {
      return this.productsInCart()

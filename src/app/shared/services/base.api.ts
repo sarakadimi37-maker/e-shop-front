@@ -12,7 +12,7 @@ export abstract class BaseApi {
 
   protected http = inject(HttpClient);
   protected errorService = inject(ErrorService);
-  protected readonly BASE_URL = environment.apiUrl;
+  protected readonly BASE_URL = environment.apiUrl+'/e-shop';
 
   protected getHeaders(): HttpHeaders {
     const token = localStorage.getItem("token");

@@ -19,7 +19,7 @@ export class Home {
   protected productApi = inject(ProductApiService);
 
   async ngOnInit() {
-    const products = await this.productApi.getProducts();
+    const products = await this.productApi.getDiscount();
 
     const saleProducts = products.filter((product: Product) => product.isPromo);
     const newProducts = products.filter((product: Product) => product.isNew);

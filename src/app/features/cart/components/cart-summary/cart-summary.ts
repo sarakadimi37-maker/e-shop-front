@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CartStore} from '../../services/cart.store';
 import {CurrencyPipe, NgClass, NgOptimizedImage} from '@angular/common';
 import {CartFacade} from '../../services/cart.facade';
@@ -18,11 +18,16 @@ import {ProductUtile} from '../../../../shared/utile/product-utile';
   templateUrl: './cart-summary.html',
   styleUrl: './cart-summary.scss'
 })
-export class CartSummary {
+export class CartSummary implements OnInit {
+
 
   cartStoreService = inject(CartStore);
   cartFacade = inject(CartFacade);
 
+  async ngOnInit(): Promise<void> {
+
+    await this.cartStoreService.loadProductInCart();
+  }
 
   subTotal(): number {
     return this.cartStoreService.productsInCart()
