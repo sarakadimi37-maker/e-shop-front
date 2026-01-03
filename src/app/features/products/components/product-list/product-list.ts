@@ -1,19 +1,21 @@
 import {ChangeDetectionStrategy, Component, computed, inject, OnInit, signal} from '@angular/core';
 import {Product} from '../../../../models/product-model';
 import {ProductCard} from '../product-card/product-card';
-import {Review} from '../../../../models/Review-model';
 import {Filter} from '../filter/filter';
 import {ProductApiService} from '../../services/product-api.service';
 import {CartStore} from '../../../cart/services/cart.store';
 import {FavoriteStore} from '../../../favorite/services/favorite.store';
 import {FavoriteFacade} from '../../../favorite/services/favorite.facade';
 import {ProductStore} from '../../services/product.store';
+import {AsyncPipe, NgClass} from '@angular/common';
+import {Pageable} from '../../../../models/Pageable';
 
 @Component({
   selector: 'app-product-list',
   imports: [
     ProductCard,
     Filter,
+    NgClass,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './product-list.html',
@@ -26,6 +28,9 @@ export class ProductList implements OnInit {
   private cartStore = inject(CartStore);
   private favoriteStore = inject(FavoriteStore);
   protected favoriteFacade = inject(FavoriteFacade);
+  currentPage: number = 0;
+  totalPages: number = 0;
+  protected totalItems: number = 0;
 
 
   products = signal<Product[]>([]);
@@ -41,7 +46,13 @@ export class ProductList implements OnInit {
   }
   async loadProducts(): Promise<void> {
     try {
-      const products :Product[] = await this.productApi.getProducts();
+     // const products :Product[] = await this.productApi.getProducts();
+      const productPginate = await this.productApi.getProductsPaginate(new Pageable(this.currentPage, 3));
+      this.currentPage = productPginate.currentPage;
+      this.totalPages = productPginate.totalPages;
+      this.totalItems = productPginate.totalItems;
+
+      const products = productPginate.content;
 
       const productsinCart = this.cartStore.productsInCart();
       products.forEach(product => {
@@ -85,6 +96,12 @@ export class ProductList implements OnInit {
     }
   }
 
+  range(start: number, end: number): number[] {
+    return Array.from(
+      { length: end - start + 1 },
+      (_, i) => start + i
+    );
+  }
   /**
    * methode qui retourn true s'il trouve l'id passer
    * en parametre dans la list faviriteIds
@@ -112,4 +129,8 @@ export class ProductList implements OnInit {
     }
   });
 
+  async changePage(page: number) {
+    this.currentPage = page;
+    await this.loadProducts();
+  }
 }
