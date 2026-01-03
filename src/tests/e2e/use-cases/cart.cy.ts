@@ -14,7 +14,7 @@ import {TestBed} from '@angular/core/testing';
 
 describe('Scenario 1: Add a product, view the cart, confirm the order ', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/products.json', { fixture: 'products.json' }).as('getProducts');
+    cy.intercept('GET', '/e-shop/products', { fixture: 'products.json' }).as('getProducts');
     cy.visit('/products');
     cy.wait('@getProducts');
   });
