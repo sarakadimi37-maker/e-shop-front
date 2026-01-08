@@ -9,7 +9,7 @@ import {Pageable} from '../../../models/Pageable';
 })
 export class ProductApiService extends BaseApi{
   private readonly endpoint = '/products.json';
-  private readonly endpointProduct = '/e-shop/products';
+  private readonly endpointProduct = '/products';
 
   async getProducts(): Promise<Product[]> {
     return this.get<Product[]>(this.endpoint);
@@ -40,4 +40,7 @@ export class ProductApiService extends BaseApi{
     return this.delete<void>(`${this.endpoint}/${id}`);
   }
 
+  async getDiscount() {
+    return this.get<Product[]>(`${this.endpointProduct}/discount?page=0&size=4`);
+  }
 }

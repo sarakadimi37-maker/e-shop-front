@@ -13,7 +13,7 @@ export type FavoriteResponse = {
 })
 export class FavoriteApi extends BaseApi{
 
-  private readonly endpoint : string= '/e-shop/favorite';
+  private readonly endpoint : string= '/favorite';
   private customerId = Number(localStorage.getItem('customerId'));
   async getFavorites(): Promise<Product[]>  {
 

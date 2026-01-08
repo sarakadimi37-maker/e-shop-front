@@ -14,8 +14,8 @@ type AuthResponse = {
 })
 export class Auth extends BaseApi{
 
-  endpoint: string = "/e-shop/auth/login";
-  customerEndpoint: string = "/e-shop/customer";
+  endpoint: string = "/auth/login";
+  customerEndpoint: string = "/customer";
 
   private user: User | undefined;
 
