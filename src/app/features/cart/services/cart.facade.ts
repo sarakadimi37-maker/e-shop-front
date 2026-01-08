@@ -26,14 +26,10 @@ export class CartFacade {
       if(existingItem){
         // update mode
         this.cartStore.updateProductToCart(product, qtOfBuy!);
-        await this.cartApi.updateCart({product: product, quantity: qtOfBuy! });
         this.notificationService.showSuccess("Produit a été mise à jour avec succès.");
       }else{
         // Create mode
         this.cartStore.addProductToCart(product, qtOfBuy!);
-
-
-        await this.cartApi.createCart({product: product, quantity: qtOfBuy! });
         this.notificationService.showSuccess("Produit a été ajouter avec succès.");
       }
       product.quantity -= qtOfBuy!;
