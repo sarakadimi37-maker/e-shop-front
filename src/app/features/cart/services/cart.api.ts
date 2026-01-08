@@ -22,9 +22,9 @@ export class CartApi extends BaseApi{
   }
   // methodes persistances
   async createCart(cart: CartItemModel): Promise<CartItemModel> {
+    const urlCustomer = `${this.endpoint}/${localStorage.getItem('customerId')}`;
     console.log("api create cart product");
-    //return this.post<CartItemModel>(this.endpoint, cart);
-    return cart;
+    return this.post<CartItemModel>(urlCustomer, cart);
   }
 
   async deleteCart(orderItemId: number): Promise<void> {

@@ -1,6 +1,7 @@
 import {Component, inject} from '@angular/core';
-import {Auth} from '../../../../auth';
+import {AuthService} from '../../../auth/auth.service';
 import {Router} from '@angular/router';
+import {User} from '../../../../models/User-model';
 
 @Component({
   selector: 'app-user-profile',
@@ -8,10 +9,15 @@ import {Router} from '@angular/router';
   templateUrl: './user-profile.html',
   styleUrl: './user-profile.scss'
 })
-export class UserProfile {
-// injection de service Auth
-  auth = inject(Auth);
+export default class UserProfile {
+// injection de service AuthService
+  auth = inject(AuthService);
   router = inject(Router);
+  private user: User | undefined;
+
+  currentUser() {
+    return this.user;
+  }
 
   // Méthode du composant, liée au template
   logout(): void {
