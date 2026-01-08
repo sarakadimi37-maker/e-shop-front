@@ -1,5 +1,6 @@
+
 @if (auth.isAuthenticated()) {
-  <p>Bonjour {{ auth.currentUser()?.name }}</p>
+  <p>Bonjour {{ currentUser()?.name }}</p>
   <button (click)="logout()">Se déconnecter</button>
 } @else {
   <button (click)="showLogin()">Se connecter</button>

@@ -86,7 +86,7 @@
             </div>
           </div>
 
-          <button class="btn-checkout" (click)="cartFacade.checkout()">
+          <button class="btn-checkout" (click)="cartFacade.checkout()" [disabled]="authService.isAuthenticated">
             <span>Procéder au paiement</span>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M7 4L13 10L7 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

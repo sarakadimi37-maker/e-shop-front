@@ -2,7 +2,8 @@ import {Component, inject} from '@angular/core';
 import {FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {LoginFormModele} from '../../../models/login-form-modele';
 import {Router, RouterLink} from '@angular/router';
-import {Auth} from '../../../auth';
+import {AuthService} from '../auth.service';
+import {FavoriteFacade} from '../../favorite/services/favorite.facade';
 
 @Component({
   selector: 'app-login',
@@ -15,8 +16,9 @@ import {Auth} from '../../../auth';
 })
 export class Login {
 
+  private favoriteFacade = inject(FavoriteFacade);
   private router: Router = inject(Router);
-  private auth = inject(Auth);
+  private authService  = inject(AuthService);
   fb = inject(NonNullableFormBuilder);
 
   loginForm: FormGroup<LoginFormModele> = this.fb.group({
@@ -27,8 +29,9 @@ export class Login {
   async submit() {
     const login = this.loginForm.controls['email'].value;
     const pwd = this.loginForm.controls['password'].value;
-    const result: boolean = await this.auth.authenticate(login, pwd);
+    const result: boolean = await this.authService.authenticate(login, pwd);
     if(result) {
+      this.favoriteFacade.loadFavorite();
       this.router.navigate(['/']);
     }else{
       // todo
