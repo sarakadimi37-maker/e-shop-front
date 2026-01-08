@@ -46,18 +46,33 @@
       </div>
 
       <form class="auth-form" [formGroup]="registerForm">
-        <!----------------------------Username --------------------------->
+        <!----------------------------nom --------------------------->
         <div class="form-group">
-          <label for="username" class="form-label">Nom d'utilisateur</label>
+          <label for="lastName" class="form-label">Nom</label>
           <div class="input-wrapper">
             <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M16 17V15C16 13.9391 15.5786 12.9217 14.8284 12.1716C14.0783 11.4214 13.0609 11 12 11H5C3.93913 11 2.92172 11.4214 2.17157 12.1716C1.42143 12.9217 1 13.9391 1 15V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
               <circle cx="8.5" cy="5" r="4" stroke="currentColor" stroke-width="1.5"/>
             </svg>
-            <input type="text" id="username" class="form-input" placeholder="Votre nom" formControlName="username"
-                   [attr.aria-invalid]="registerForm.controls.username.invalid">
-            @if (registerForm.controls.username.invalid && registerForm.controls.username.touched) {
-              <p class="error">Le username est requis</p>
+            <input type="text" id="lastName" class="form-input" placeholder="Votre nom" formControlName="lastName"
+                   [attr.aria-invalid]="registerForm.controls.lastName.invalid">
+            @if (registerForm.controls.lastName.invalid && registerForm.controls.lastName.touched) {
+              <p class="error">Le nom est requis</p>
+            }
+          </div>
+        </div>
+        <!----------------------------prenom --------------------------->
+        <div class="form-group">
+          <label for="firstName" class="form-label">Prénom</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 17V15C16 13.9391 15.5786 12.9217 14.8284 12.1716C14.0783 11.4214 13.0609 11 12 11H5C3.93913 11 2.92172 11.4214 2.17157 12.1716C1.42143 12.9217 1 13.9391 1 15V17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="8.5" cy="5" r="4" stroke="currentColor" stroke-width="1.5"/>
+            </svg>
+            <input type="text" id="firstName" class="form-input" placeholder="Votre prénom" formControlName="firstName"
+                   [attr.aria-invalid]="registerForm.controls.firstName.invalid">
+            @if (registerForm.controls.firstName.invalid && registerForm.controls.firstName.touched) {
+              <p class="error">Le prénom est requis</p>
             }
           </div>
         </div>
@@ -144,28 +159,99 @@
             </button>
           </div>
         </div>
-        <!----------------------------Adresse --------------------------->
-        <div class="form-group" formArrayName="addresses">
-          <label for="address" class="form-label">Adresse</label>
-          @for (addresse of addresses.controls; track $index) {
-            <div class="input-wrapper">
-              <svg class="input-icon" style="color: black" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
-                <path d="M304 70.1C313.1 61.9 326.9 61.9 336 70.1L568 278.1C577.9 286.9 578.7 302.1 569.8 312C560.9 321.9 545.8 322.7 535.9 313.8L527.9 306.6L527.9 511.9C527.9 547.2 499.2 575.9 463.9 575.9L175.9 575.9C140.6 575.9 111.9 547.2 111.9 511.9L111.9 306.6L103.9 313.8C94 322.6 78.9 321.8 70 312C61.1 302.2 62 287 71.8 278.1L304 70.1zM320 120.2L160 263.7L160 512C160 520.8 167.2 528 176 528L224 528L224 424C224 384.2 256.2 352 296 352L344 352C383.8 352 416 384.2 416 424L416 528L464 528C472.8 528 480 520.8 480 512L480 263.7L320 120.3zM272 528L368 528L368 424C368 410.7 357.3 400 344 400L296 400C282.7 400 272 410.7 272 424L272 528z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              <input type="text" id="adresse-{{$index}}" class="form-input" placeholder="Adresse {{ $index+1}}" [value]="addresse.value"
-                     [formControlName]="$index"  [attr.aria-invalid]="registerForm.controls.addresses.invalid">
-              @if ($index != 0) {
-                <button class="btn-clear" type="button" (click)="addresses.removeAt($index)">Supprimer</button>
-              }
 
-            </div>
-          }
-          <button class="btn-primary" type="button" (click)="addresses.push(fb.control(''))">Ajouter une adresse</button>
+        <!----------------------------Adresse2 --------------------------->
+        <div class="form-group">
+          <label for="streetAddress" class="form-label">Adresse</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" style="color: black" width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+              <path d="M304 70.1C313.1 61.9 326.9 61.9 336 70.1L568 278.1C577.9 286.9 578.7 302.1 569.8 312C560.9 321.9 545.8 322.7 535.9 313.8L527.9 306.6L527.9 511.9C527.9 547.2 499.2 575.9 463.9 575.9L175.9 575.9C140.6 575.9 111.9 547.2 111.9 511.9L111.9 306.6L103.9 313.8C94 322.6 78.9 321.8 70 312C61.1 302.2 62 287 71.8 278.1L304 70.1zM320 120.2L160 263.7L160 512C160 520.8 167.2 528 176 528L224 528L224 424C224 384.2 256.2 352 296 352L344 352C383.8 352 416 384.2 416 424L416 528L464 528C472.8 528 480 520.8 480 512L480 263.7L320 120.3zM272 528L368 528L368 424C368 410.7 357.3 400 344 400L296 400C282.7 400 272 410.7 272 424L272 528z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
 
+            <input
+              type="text"
+              id="streetAddress"
+              class="form-input"
+              placeholder="Rue et numéro"
+              formControlName="streetAddress"
+              [attr.aria-invalid]="registerForm.controls.streetAddress.invalid"
+            />
+
+            @if (registerForm.controls.streetAddress.invalid && registerForm.controls.streetAddress.touched) {
+              <p class="error">Adresse invalide</p>
+            }
+          </div>
         </div>
 
+          <!-- Code postal -->
+          <div class="form-group">
+            <label for="postalCode" class="form-label">Code postal</label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="postalCode"
+                class="form-input"
+                placeholder="Code postal"
+                formControlName="postalCode"
+                [attr.aria-invalid]="registerForm.controls.postalCode.invalid"
+              />
+
+              @if (registerForm.controls.postalCode.touched && registerForm.controls.postalCode.invalid) {
+                <p class="error">
+                  @if (registerForm.controls.postalCode.errors?.['required']) {
+                    Code postal requis
+                  }
+                  @if (registerForm.controls.postalCode.errors?.['pattern']) {
+                    Code postal invalide (5 chiffres)
+                  }
+                </p>
+              }
+            </div>
+          </div>
+
+
+        <!-- Ville -->
+        <div class="form-group">
+          <label for="city" class="form-label">Ville</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="city"
+              class="form-input"
+              placeholder="Ville"
+              formControlName="city"
+              [attr.aria-invalid]="registerForm.controls.city.invalid"
+            />
+
+            @if (registerForm.controls.city.invalid && registerForm.controls.city.touched) {
+              <p class="error">Ville requise</p>
+            }
+          </div>
+        </div>
+        <!-- pays -->
+        <div class="form-group">
+          <label for="country" class="form-label">Pays</label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              id="country"
+              class="form-input"
+              placeholder="France"
+              formControlName="country"
+              [attr.aria-invalid]="registerForm.controls.country.invalid"
+            />
+
+            @if (registerForm.controls.country.invalid && registerForm.controls.country.touched) {
+              <p class="error">Pays requis</p>
+            }
+          </div>
+        </div>
+
+
+
+
         <!----------------------------Submit button --------------------------->
-        <button type="submit" [disabled]="registerForm.invalid" class="btn-submit">
+        <button type="submit" [disabled]="registerForm.invalid" (click)="createAccount()" class="btn-submit">
           <span>Créer mon compte</span>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M7 3L13 10L7 17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

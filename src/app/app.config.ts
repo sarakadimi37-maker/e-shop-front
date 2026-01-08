@@ -8,13 +8,15 @@ import { provideRouter } from '@angular/router';
 import { routes } from './router/app.routes';
 import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/http';
 import {loadingInterceptor} from './core/interceptors/loading-interceptor';
+import {authInterceptor} from './features/auth/auth.interceptor';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(
-      withInterceptors([loadingInterceptor])
+      withInterceptors([loadingInterceptor]),
+      withInterceptors([authInterceptor])
     ),
   ]
 };

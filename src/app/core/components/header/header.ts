@@ -4,7 +4,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {CartStore} from '../../../features/cart/services/cart.store';
 import {FavoriteStore} from '../../../features/favorite/services/favorite.store';
 import {NgClass} from '@angular/common';
-import {ProductStore} from '../../../features/products/services/product.store';
+import {AuthService} from '../../../features/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -20,7 +20,7 @@ import {ProductStore} from '../../../features/products/services/product.store';
 export class Header {
   cartStore = inject(CartStore);
   favoriteStore = inject(FavoriteStore);
-  productStore = inject(ProductStore);
+  authService = inject(AuthService);
 
   isOpen: boolean = false;
   toggleMenu() {

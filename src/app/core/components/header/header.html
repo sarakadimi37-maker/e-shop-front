@@ -12,12 +12,23 @@
         <li>
           <a class="nav-link" routerLink="/products"  routerLinkActive="active" (click)="toggleMenu()">Produits</a>
         </li>
-        <li>
-          <a class="nav-link" routerLink="/register"  routerLinkActive="active" (click)="toggleMenu()">Register</a>
-        </li>
-        <li>
-          <a class="nav-link" routerLink="/login"  routerLinkActive="active" (click)="toggleMenu()">Login</a>
-        </li>
+
+        @if (authService.isAuthenticated()) {
+          <li>
+            <a routerLink="/profile" routerLinkActive="active" class="nav-link" (click)="toggleMenu()">Profile</a>
+          </li>
+          <li>
+            <a (click)="authService.logout()" class="nav-link" >Déconnexion</a>
+          </li>
+        } @else {
+          <li>
+            <a class="nav-link" routerLink="/register"  routerLinkActive="active" (click)="toggleMenu()">Register</a>
+          </li>
+          <li>
+            <a class="nav-link" routerLink="/login"  routerLinkActive="active" (click)="toggleMenu()">Login</a>
+          </li>
+        }
+
         <li>
           <a class="nav-link" routerLink="/settings"  routerLinkActive="active" (click)="toggleMenu()">Configuration</a>
         </li>
@@ -44,8 +55,15 @@
           <a routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Accueil</a>
           <a routerLink="/products" routerLinkActive="active" class="nav-link">Produits</a>
           <a routerLink="/admin"  routerLinkActive="active" class="nav-link">Admin</a>
-          <a routerLink="/register" routerLinkActive="active" class="nav-link">Register</a>
-          <a routerLink="/login" routerLinkActive="active" class="nav-link">Login</a>
+
+          @if (authService.isAuthenticated()) {
+            <a routerLink="/profile" routerLinkActive="active" class="nav-link">Profile</a>
+            <a (click)="authService.logout()" class="nav-link">Déconnexion</a>
+          } @else {
+            <a routerLink="/register" routerLinkActive="active" class="nav-link">Register</a>
+            <a routerLink="/login" routerLinkActive="active" class="nav-link">Login</a>
+          }
+
         </nav>
         <!------------------------------- Voir le favoris ----------------------------------->
 

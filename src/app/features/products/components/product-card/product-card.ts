@@ -1,11 +1,12 @@
 import {Component, effect, inject, input, output, signal} from '@angular/core';
-import {RouterLink} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {Product} from '../../../../models/product-model';
 import {NgClass, NgOptimizedImage} from '@angular/common';
 import {ReactiveFormsModule} from '@angular/forms';
 import {CartFacade} from '../../../cart/services/cart.facade';
 import {ProductCategories} from '../product-category/product-categories';
 import {PriceDiscount} from '../price-discount/price-discount';
+import {AuthService} from '../../../auth/auth.service';
 
 
 @Component({
@@ -30,7 +31,9 @@ import {PriceDiscount} from '../price-discount/price-discount';
 
   qtOfBuy = signal<number>(0);
 
-  cartFacade = inject(CartFacade);
+  protected cartFacade = inject(CartFacade);
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
   constructor() {
     effect(() => {
@@ -40,11 +43,17 @@ import {PriceDiscount} from '../price-discount/price-discount';
 
 
   onToogleFavorite(): void {
-    if (this.isFavorite()) {
-      this.productRemoveFromFavorites.emit(this.product());
-    } else {
-      this.productAddedToFavorites.emit(this.product());
+    if (!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+      return;
+    }else{
+      if (this.isFavorite()) {
+        this.productRemoveFromFavorites.emit(this.product());
+      } else {
+        this.productAddedToFavorites.emit(this.product());
+      }
     }
+
   }
 
 

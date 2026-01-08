@@ -26,18 +26,15 @@ export class CartFacade {
       if(existingItem){
         // update mode
         this.cartStore.updateProductToCart(product, qtOfBuy!);
-        await this.cartApi.updateCart({product: product, quantity: qtOfBuy! });
         this.notificationService.showSuccess("Produit a été mise à jour avec succès.");
       }else{
         // Create mode
         this.cartStore.addProductToCart(product, qtOfBuy!);
-
-
-        await this.cartApi.createCart({product: product, quantity: qtOfBuy! });
         this.notificationService.showSuccess("Produit a été ajouter avec succès.");
       }
       product.quantity -= qtOfBuy!;
-
+      // appel vers backend
+      await this.cartApi.createUpdateCart(product.id, qtOfBuy!);
     }catch(error){
       // dans le cas de problème levé via l'appel de validateAdd de Rule
       if(error instanceof Error){
@@ -56,6 +53,8 @@ export class CartFacade {
       this.cartStore.reduceQtOfProduct(product.id, qtOfRemove);
       await this.cartApi.updateCart({product: product, quantity: qtOfRemove! });
       product.quantity += qtOfRemove!;
+      // appel vers backend
+      await this.cartApi.createUpdateCart(product.id, -qtOfRemove!);
     }catch(error){
       // dans le cas de problème levé via l'appel de validateAdd de Rule
       if(error instanceof Error){
@@ -66,15 +65,21 @@ export class CartFacade {
     }
   }
 
-  async remove(productId: number) {
+  async remove(productId: number, orderItemId?: number) {
     this.cartStore.removeFromCart(productId);
-    await this.cartApi.deleteCart(productId);
+    if(orderItemId){
+      await this.cartApi.deleteCart(orderItemId);
+    }
+
     this.notificationService.showSuccess("Produit a été supprimer avec succès.");
   }
 
   clearProductsInCart() {
     this.cartStore.productsInCart().forEach(async (item) => {
-      await this.cartApi.deleteCart(item.product.id);
+      if(item.orderItemId){
+        await this.cartApi.deleteCart(item.orderItemId);
+      }
+
     });
     this.cartStore.clearCart();
     this.notificationService.showSuccess("Le panier a été vider avec succès.");

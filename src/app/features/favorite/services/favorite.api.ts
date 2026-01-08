@@ -13,27 +13,34 @@ export type FavoriteResponse = {
 })
 export class FavoriteApi extends BaseApi{
 
-  private readonly endpoint : string= '/e-shop/favorite';
-  private customerId = Number(localStorage.getItem('customerId'));
+  private readonly endpoint : string= '/favorite';
+
   async getFavorites(): Promise<Product[]>  {
 
-
-    const favoriteUrl: string = `${this.endpoint}/${this.customerId}`;
-
+    const customerId = this.getCustomerId();
+    const favoriteUrl: string = `${this.endpoint}/${customerId}`;
     const response = await this.get<FavoriteResponse[]>(favoriteUrl);
     return response.map(favorite => favorite.product);
   }
 
   async deleteFavorite(productId: number) {
+
+    const customerId = this.getCustomerId();
     console.log("api delete cart product");
-    return this.delete<void>(`${this.endpoint}?customerId=${this.customerId}&productId=${productId}`);
+    return this.delete<void>(`${this.endpoint}?customerId=${customerId}&productId=${productId}`);
   }
 
   async createFavorite(productId: number) {
+
+    const customerId = this.getCustomerId();
     const body = {
       productId: productId,
-      customerId: this.customerId,
+      customerId: customerId,
     }
     return this.post(this.endpoint, body);
+  }
+
+  private getCustomerId() {
+    return Number(localStorage.getItem('customerId'));
   }
 }

@@ -1,10 +1,15 @@
 import {CanActivateFn, Router} from '@angular/router';
 import {inject} from '@angular/core';
+import {AuthService} from '../../features/auth/auth.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn =
+  (route, state) => {
+
   const router = inject(Router);
-  if(localStorage.getItem('iLoveSalmon') != null) {
-    console.log(localStorage.getItem('iLoveSalmon'));
+  const authService = inject(AuthService);
+
+  // todo verification de role si c'est admin affiche la page admin
+  if(authService.isAuthenticated()) {
     return true;
   }else {
     // redirection vers la page erreur
