@@ -39,6 +39,8 @@ export abstract class BaseApi {
 
   protected async post<T>(endpoint: string, body: any): Promise<T> {
     try {
+      console.log("test base url post login => ", this.BASE_URL);
+      console.log("test endpoint post login => ", endpoint);
       return await firstValueFrom(
         this.http.post<T>(`${this.BASE_URL}${endpoint}`, body, { headers: this.getHeaders() })
       );

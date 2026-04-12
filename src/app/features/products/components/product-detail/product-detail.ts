@@ -13,6 +13,7 @@ import {Review} from '../../../../models/Review-model';
 import {RateFormModel} from '../../../../models/Rate-form-model';
 import {ProductStore} from '../../services/product.store';
 import {PriceDiscount} from '../price-discount/price-discount';
+import {AuthService} from '../../../auth/auth.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -37,6 +38,7 @@ export class ProductDetail implements OnInit {
   protected cartStore = inject(CartStore);
   protected favoriteStore = inject(FavoriteStore);
   protected favoritefacade = inject(FavoriteFacade);
+  protected authService = inject(AuthService);
   protected product = signal<Product | undefined>(undefined);
   qtOfBuy = signal<number>(0);
   isFavorite = signal<boolean>(false);
@@ -106,13 +108,19 @@ export class ProductDetail implements OnInit {
   }
 
   onToogleFavorite(): void {
-    if (this.isFavorite()) {
-      this.favoritefacade.onProductRemoveFromFavorite(this.product()!);
-      this.isFavorite.set(false);
-    }else{
-      this.favoritefacade.onProductAddedToFavorite(this.product()!);
-      this.isFavorite.set(true);
+    if(!this.authService.isAuthenticated()) {
+      this.router.navigate(['/login']);
+    } else {
+      if (this.isFavorite()) {
+        this.favoritefacade.onProductRemoveFromFavorite(this.product()!);
+        this.isFavorite.set(false);
+      }else{
+        this.favoritefacade.onProductAddedToFavorite(this.product()!);
+        this.isFavorite.set(true);
+      }
     }
+
+
   }
 
   ratingForm: FormGroup<RateFormModel> = this.fb.group({

@@ -25,7 +25,7 @@ import {routes} from '../../../../router/app.routes';
 })
 export class RegisterForm extends BaseApi{
 
-  endpoint: string = "/e-shop/auth/register";
+  endpoint: string = "/auth/register";
   private router: Router = inject(Router);
 
   hasMajuscule = false;

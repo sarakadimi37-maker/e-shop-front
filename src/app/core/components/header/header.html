@@ -14,6 +14,12 @@
         </li>
 
         @if (authService.isAuthenticated()) {
+          @if (authService.hasAdminRole()) {
+            <li>
+              <a class="nav-link" routerLink="/admin"  routerLinkActive="active" (click)="toggleMenu()">Admin</a>
+            </li>
+          }
+
           <li>
             <a routerLink="/profile" routerLinkActive="active" class="nav-link" (click)="toggleMenu()">Profile</a>
           </li>
@@ -32,9 +38,7 @@
         <li>
           <a class="nav-link" routerLink="/settings"  routerLinkActive="active" (click)="toggleMenu()">Configuration</a>
         </li>
-        <li>
-          <a class="nav-link" routerLink="/admin"  routerLinkActive="active" (click)="toggleMenu()">Admin</a>
-        </li>
+
       </ul>
     </div>
   </div>
@@ -54,9 +58,12 @@
         <nav class="header-nav">
           <a routerLink="/"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">Accueil</a>
           <a routerLink="/products" routerLinkActive="active" class="nav-link">Produits</a>
-          <a routerLink="/admin"  routerLinkActive="active" class="nav-link">Admin</a>
 
           @if (authService.isAuthenticated()) {
+            @if (authService.hasAdminRole()) {
+              <a routerLink="/admin"  routerLinkActive="active" class="nav-link">Admin</a>
+            }
+
             <a routerLink="/profile" routerLinkActive="active" class="nav-link">Profile</a>
             <a (click)="authService.logout()" class="nav-link">Déconnexion</a>
           } @else {

@@ -24,8 +24,6 @@ export class AuthService extends BaseApi{
   customerEndpoint: string = "/customer";
 
   private favoriteStore = inject(FavoriteStore);
-  private cartStore = inject(CartStore);
-
 
   getToken(): string | null {
     return localStorage.getItem('token');
@@ -82,6 +80,24 @@ export class AuthService extends BaseApi{
     this.favoriteStore.clearFavorites();
   }
 
+  hasAdminRole(): boolean {
+    const token = this.getToken();
+    if (!token) {
+      return false;
+    }
 
+    try {
+      const payloadBase64 = token.split('.')[1];
+      const payloadJson = atob(payloadBase64);
+      const payload = JSON.parse(payloadJson);
+
+      const roles: string[] = payload.role ?? [];
+
+      return roles.includes('ROLE_ADMIN');
+    } catch (error) {
+      console.error('Token invalide', error);
+      return false;
+    }
+  }
 
 }

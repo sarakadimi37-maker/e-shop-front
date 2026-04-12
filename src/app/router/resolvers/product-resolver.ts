@@ -1,17 +1,17 @@
-import { ResolveFn } from '@angular/router';
+import {ResolveFn, Router} from '@angular/router';
 import {Product} from '../../models/product-model';
 import {inject} from '@angular/core';
 import {ProductApiService} from '../../features/products/services/product-api.service';
 
-export const productResolver: ResolveFn<Product> = async (route, state) => {
+export const productResolver: ResolveFn<Product> = async (route,state) => {
   const productApi = inject(ProductApiService);
+  const router: Router = inject(Router);
   const id = +route.paramMap.get('id')!;
-  const products = await productApi.getProducts();
-  const product = products.find((product) => product.id === id);
 
-  //console.log('format json de products =>' , JSON.stringify(products));
-  // TODO plustard quand j'auraiu une api
-  // return await productApi.getProductById(id);
+  const product = await productApi.getProductById(id);
+  if(product == null){
+    router.navigate(['/error'])
+  }
   return product!;
 };
 

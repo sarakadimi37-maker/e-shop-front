@@ -1,0 +1,125 @@
+<body>
+ <!-- Contenu principal -->
+  <main id="admin-page" class="main-content">
+    <!-- En-tête -->
+    <header class="admin-header">
+      <div class="header-left">
+        <h1>Gestion des Produits</h1>
+        <p class="header-subtitle">Ajouter, modifier ou supprimer des produits</p>
+      </div>
+      <div class="header-right">
+        <button class="btn-add-product" id="addProductBtn" (click)="openAddModal()">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 2V18M2 10H18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          Ajouter un produit
+        </button>
+      </div>
+    </header>
+
+    <!-- Contenu -->
+    <div class="products-content">
+      <!-- Tableau des produits -->
+      <section class="products-list-section">
+        <div class="section-header">
+          <h2>Liste des Produits</h2>
+          <div class="search-bar">
+            <input type="text" placeholder="Rechercher un produit..." class="search-input">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="1.5"/>
+              <path d="M12 12L17 17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="products-table">
+            <thead>
+            <tr>
+              <th>Image</th>
+              <th>Nom</th>
+              <th>Catégorie</th>
+              <th>Prix</th>
+              <th>Stock</th>
+              <th>Promotion</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (product of products(); track product.id) {
+
+                <tr>
+                  <td><div class="product-thumb">
+                    <img
+                         [ngSrc]="product.imageUrl"
+                         width="60"
+                         height="60"
+                         [alt]="product.name"
+                         class="product-image">
+                  </div></td>
+                  <td><strong>{{product.name}}</strong></td>
+                  <td><span class="category-tag-admin">
+                    <app-product-categories [category]="product.category"></app-product-categories>
+                    </span></td>
+                  <td>{{product.price}} €</td>
+                  <td><span class="stock-badge in-stock">{{ product.quantity }}</span></td>
+                  <td><span class="status-badge" [ngClass]="product.isPromo ? 'active' : 'inactive'">{{product.discountPercentage}} %</span></td>
+                  <td>
+                    <button class="btn-edit" title="Modifier" (click)="openEditModal(product)">✏️</button>
+                    <button class="btn-delete" title="Supprimer" (click)="deleteProduct(product)">🗑️</button>
+                  </td>
+                </tr>
+
+              }
+
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    <!-- Pagination -->
+    <nav class="pagination" aria-label="Pagination des produits">
+      <button class="pagination-btn pagination-prev"
+              [disabled]="currentPage===0"
+              aria-label="Page précédente" (click)="changePage(currentPage-1)">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 4L6 10L12 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      @for (page of range(0, totalPages-1); track page){
+        <button class="pagination-number"
+                [ngClass]="page === currentPage? 'active' : ''"
+                [attr.aria-label]="'Page ' + page+1"
+                [attr.aria-current]="page === currentPage ? 'page' : null"
+                (click)="changePage(page)">
+          {{ page +1 }}
+        </button>
+      }
+      <button class="pagination-btn pagination-next"
+              [disabled]="(currentPage+1)===totalPages"
+              (click)="changePage(currentPage+1)"
+              aria-label="Page suivante">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 4L14 10L8 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </nav>
+
+
+    <!-- Modal d'ajout/modification de produit -->
+    @if (isModalOpen()){
+      <div class="modal active" id="productModal">
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="modalTitle">Ajouter un produit</h2>
+            <button class="btn-close" id="closeModalBtn" (click)="closeModal()">✕</button>
+          </div>
+          <app-product-modal></app-product-modal>
+        </div>
+      </div>
+    }
+  </main>
+
+</body>
+

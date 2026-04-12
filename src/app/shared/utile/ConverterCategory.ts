@@ -4,7 +4,7 @@ export class ConverterCategory {
   public static getFr(value: string): string {
      let category = categories.find(category => category.value === value);
      if(category === undefined) {
-       return '';
+       return value;
      }else{
        return category.label;
      }

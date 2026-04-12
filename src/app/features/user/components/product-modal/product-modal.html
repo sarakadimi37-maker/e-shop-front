@@ -1,0 +1,98 @@
+<form class="product-form" id="productForm" [formGroup]="productForm">
+  <div class="form-grid">
+    <!-- Colonne gauche -->
+    <div class="form-column">
+      <!-- Nom du produit -->
+      <div class="form-group">
+        <label for="name">Nom du produit *</label>
+        <input type="text" id="name" formControlName="name" placeholder="Ex: Casque Audio Premium" required>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="productDescription">Description *</label>
+        <textarea id="productDescription" formControlName="description" placeholder="Décrivez votre produit..." rows="4" required></textarea>
+      </div>
+
+      <!-- Catégorie -->
+      <div class="form-group">
+        <label for="productCategory">Catégorie *</label>
+        <select id="productCategory"  formControlName="category" required >
+          <option value="">Sélectionner une catégorie</option>
+          @for (cat of categories(); track cat.value) {
+            <option [value]="cat.value">{{ cat.label }}</option>
+          }
+
+        </select>
+      </div>
+
+      <!-- Statut -->
+      <div class="form-group">
+        <label for="productStatus">Statut</label>
+        <select id="productStatus" formControlName="status">
+          <option value="active">Actif</option>
+          <option value="inactive">Inactif</option>
+        </select>
+      </div>
+
+    </div>
+
+    <!-- Colonne droite -->
+    <div class="form-column">
+      <!-- Image URL -->
+      <div class="form-group">
+        <label for="productImage">URL de l'image *</label>
+        <input type="url" id="productImage" formControlName="image" placeholder="https://exemple.com/image.jpg" required>
+        <div class="image-preview" id="imagePreview">
+          <p>Aperçu de l'image</p>
+        </div>
+      </div>
+
+      <!-- Prix -->
+      <div class="form-group">
+        <label for="productPrice">Prix (€) *</label>
+        <input type="number" id="productPrice" formControlName="price" placeholder="0.00" step="0.01" min="0" required>
+      </div>
+
+      <!-- Stock -->
+      <div class="form-group">
+        <label for="productStock">Stock (unités) *</label>
+        <input type="number" id="productStock" formControlName="quantity" placeholder="0" min="0" required>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- Section Promotion -->
+  <div class="form-section">
+    <h3>Promotion</h3>
+    <div class="form-grid">
+      <div class="form-column">
+        <div class="form-group">
+          <label for="promotionPercentage">Pourcentage de réduction (%)</label>
+          <input type="number" id="promotionPercentage" formControlName="discount" placeholder="0" min="0" max="100" step="0.01">
+        </div>
+
+        <div class="form-group">
+          <label for="promotionStartDate">Date de début</label>
+          <input type="datetime-local" id="promotionStartDate" formControlName="promotionStartDate">
+        </div>
+      </div>
+
+      <div class="form-column">
+        <div class="form-group">
+          <label for="promotionEndDate">Date de fin</label>
+          <input type="datetime-local" id="promotionEndDate" formControlName="promotionEndDate">
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Boutons d'action -->
+  <div class="form-actions">
+    <button type="button" class="btn-cancel" id="cancelBtn" (click)="cancel()">Annuler</button>
+    <button type="submit" class="btn-submit" (click)="submitForm()">Enregistrer le produit</button>
+  </div>
+</form>
